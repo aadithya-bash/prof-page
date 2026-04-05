@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Prof. Pranawachandra Deshmukh | PM Professor – CUK</title>
+  <title>Prof. Pranawachandra Deshmukh | ANRF Prime Minister Professor – CUK</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -15,7 +15,7 @@
 
     :root {
       --bg-light: #f9fafc;
-      --surface-light: rgba(255, 255, 255, 0.3);   /* 30% glassy */
+      --surface-light: rgba(255, 255, 255, 0.3);
       --text-primary-light: #0a0f1c;
       --text-secondary-light: #2c3e4e;
       --accent-light: #2c6e9e;
@@ -26,7 +26,7 @@
 
     body.dark {
       --bg-light: #0b1120;
-      --surface-light: rgba(17, 24, 39, 0.3);    /* 30% glassy dark */
+      --surface-light: rgba(17, 24, 39, 0.3);
       --text-primary-light: #f1f5f9;
       --text-secondary-light: #cbd5e1;
       --accent-light: #5b9bc5;
@@ -53,7 +53,7 @@
       margin: 0 1.5rem;
     }
     .top-bar-container {
-      background: rgba(255, 255, 255, 0.6);   /* 60% glassy base */
+      background: rgba(255, 255, 255, 0.6);
       backdrop-filter: blur(16px);
       border-radius: 50px;
       padding: 0.6rem 1.8rem;
@@ -91,7 +91,6 @@
       align-items: center;
       flex-wrap: wrap;
     }
-    /* Each nav link as a separate glassy pill */
     .nav-links a, .theme-toggle {
       display: inline-block;
       background: rgba(255, 255, 255, 0.25);
@@ -120,7 +119,7 @@
       position: relative;
       min-height: 100vh;
       display: flex;
-      align-items: flex-end;  /* push content to bottom */
+      align-items: flex-end;
       background: url('PCD.png') center center / cover no-repeat;
       transition: opacity 0.05s linear;
       will-change: opacity;
@@ -136,7 +135,6 @@
       background: rgba(0, 0, 0, 0.45);
       z-index: 1;
     }
-    /* Subtle bottom gradient line for aesthetics */
     .hero::after {
       content: '';
       position: absolute;
@@ -153,7 +151,7 @@
       z-index: 2;
       max-width: 1280px;
       margin: 0 auto;
-      padding: 0 2rem 8rem 5%;  /* bottom padding moves text down, left indent */
+      padding: 0 2rem 8rem 5%;
       color: white;
       text-align: left;
       width: 100%;
@@ -189,7 +187,7 @@
       margin-top: 1rem;
     }
 
-    /* ---- SECTIONS (glass cards, no gap) ---- */
+    /* ---- SECTIONS (glass cards) ---- */
     section {
       max-width: 1280px;
       margin: 0 auto;
@@ -321,6 +319,30 @@
       border: 3px solid var(--accent-light);
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
+    .scholar-stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .scholar-stats div {
+      background: rgba(255,255,255,0.2);
+      border-radius: 1rem;
+      padding: 0.8rem;
+      flex: 1;
+      margin: 0 0.5rem;
+    }
+    .external-links {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .external-links a {
+      color: var(--accent-light);
+      text-decoration: none;
+      font-weight: 500;
+    }
     @media (max-width: 768px) {
       .hero-content h1 { font-size: 2.2rem; white-space: normal; }
       .hero-content { padding-bottom: 4rem; padding-left: 5%; }
@@ -328,12 +350,14 @@
       .nav-links { justify-content: center; }
       .logo-area { justify-content: center; }
       .hero-content h2, .hero-content .dept { font-size: 1.2rem; }
+      .scholar-stats { flex-direction: column; gap: 0.5rem; }
+      .scholar-stats div { margin: 0; }
     }
   </style>
 </head>
 <body>
 
-<!-- Glassy top bar with separate pill links -->
+<!-- Glassy top bar -->
 <div class="top-bar">
   <div class="top-bar-container">
     <div class="logo-area">
@@ -351,10 +375,10 @@
   </div>
 </div>
 
-<!-- Hero section with scroll‑controlled opacity + bottom gradient -->
+<!-- Hero section -->
 <div class="hero" id="heroSection">
   <div class="hero-content">
-    <h2>Prime Minister Professor</h2>
+    <h2>ANRF Prime Minister Professor</h2>
     <h1>Prof. Pranawachandra Deshmukh</h1>
     <h2 class="dept">Department of Physics</h2>
     <p class="tagline">Former Vice-Chancellor • Educationist • Policy Architect</p>
@@ -366,9 +390,18 @@
     <h2 class="section-title"><i class="fas fa-user-graduate"></i> Biography</h2>
     <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
       <div style="flex:2; line-height:1.7;">
-        <p><strong>Prof. Pranawachandra Deshmukh</strong> (born 1957) is an Indian academic administrator and educationist. He currently serves as <strong>PM Professor at Central University of Kerala</strong>. He was the former Vice-Chancellor of Swami Ramanand Teerth Marathwada University (SRTMU), Nanded.</p>
-        <p>He earned his M.A. in Political Science and Ph.D. from Dr. Babasaheb Ambedkar Marathwada University. With over 42 years of teaching and administrative experience, he has been instrumental in implementing NEP 2020 reforms, establishing research centres, and promoting inclusive education. He has guided 28 doctoral students and published extensively on higher education governance, public policy, and quality assurance.</p>
-        <p>Prof. Deshmukh has served on numerous national committees, including UGC, NAAC, and AICTE, and has received multiple lifetime achievement awards for his contributions to Indian higher education.</p>
+        <p><strong>Prof. Pranawachandra Deshmukh</strong> (born 1957) is an Indian academic administrator and physicist. He currently serves as <strong>ANRF Prime Minister Professor at Central University of Kerala</strong>. He was the former Vice-Chancellor of Swami Ramanand Teerth Marathwada University (SRTMU), Nanded.</p>
+        <p>He earned his M.Sc. in Physics and Ph.D. from Dr. Babasaheb Ambedkar Marathwada University. With over 42 years of teaching and research experience, he has been instrumental in implementing NEP 2020 reforms, establishing research centres, and promoting inclusive education. He has guided 28 doctoral students and published extensively in the fields of condensed matter physics, material science, and higher education governance.</p>
+        <p>Prof. Deshmukh has served on numerous national committees, including UGC, NAAC, and AICTE, and has received multiple lifetime achievement awards for his contributions to Indian higher education and scientific research.</p>
+        <div class="external-links">
+          <a href="https://en.wikipedia.org/wiki/Pranawachandra_Deshmukh" target="_blank"><i class="fab fa-wikipedia-w"></i> Wikipedia</a>
+          <a href="https://scholar.google.com/citations?hl=en&user=vj1Xi9QAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
+        </div>
+        <div class="scholar-stats">
+          <div><strong>Citations</strong><br>2435</div>
+          <div><strong>h-index</strong><br>25</div>
+          <div><strong>i10-index</strong><br>67</div>
+        </div>
       </div>
       <div style="flex:1; text-align:center;">
         <img src="PCD.png" alt="Prof. Deshmukh" class="about-avatar">
@@ -383,13 +416,13 @@
   </section>
 
   <section id="current-role">
-    <h2 class="section-title"><i class="fas fa-chalkboard-user"></i> Present Position: PM Professor at CUK</h2>
+    <h2 class="section-title"><i class="fas fa-chalkboard-user"></i> Present Position: ANRF Prime Minister Professor</h2>
     <div class="card" style="text-align:center;">
       <i class="fas fa-university" style="font-size:3rem;"></i>
-      <h3>Prime Minister's Professor – Central University of Kerala</h3>
-      <p><strong>What is a PM Professor?</strong> The Prime Minister’s Scheme for Mentoring Young Professors is a prestigious national initiative to bring eminent academicians and former Vice-Chancellors to central universities. These distinguished professors mentor early‑career faculty, design innovative curricula, and lead policy‑oriented research.</p>
-      <p>Prof. Deshmukh’s role includes: guiding interdisciplinary research, advising the university on NEP 2020 implementation, conducting high‑level workshops for faculty development, and fostering international collaborations. He also teaches advanced courses in higher education governance and public policy.</p>
-      <p><strong>Office:</strong> Tejaswini Hills, Periye, Kasaragod – 671320</p>
+      <h3>ANRF Prime Minister Professor – Central University of Kerala</h3>
+      <p><strong>About the role:</strong> The ANRF (Anusandhan National Research Foundation) Prime Minister’s Scheme for Mentoring Young Professors is a prestigious national initiative to bring eminent academicians and former Vice-Chancellors to central universities. These distinguished professors mentor early‑career faculty, design innovative curricula, and lead policy‑oriented research.</p>
+      <p>Prof. Deshmukh’s responsibilities include: guiding interdisciplinary research in physics and material science, advising the university on NEP 2020 implementation, conducting high‑level workshops for faculty development, and fostering international collaborations. He also teaches advanced courses in condensed matter physics and higher education governance.</p>
+      <p><strong>Office:</strong> Tejaswini Hills, Periye, Kasaragod – 671320, Kerala, India</p>
     </div>
   </section>
 
@@ -404,12 +437,12 @@
       <div class="card">
         <i class="fas fa-chalkboard"></i>
         <h3>Professor & Dean</h3>
-        <p>Earlier served as Professor of Political Science and Dean of Academic Affairs at SRTMU and other universities.</p>
+        <p>Earlier served as Professor of Physics and Dean of Academic Affairs at SRTMU and other universities.</p>
       </div>
       <div class="card">
         <i class="fas fa-globe"></i>
         <h3>International Collaborations</h3>
-        <p>Led MOUs with universities in UK, Canada, and South Africa for student/faculty exchange and joint research.</p>
+        <p>Led MOUs with universities in UK, Canada, and South Africa for student/faculty exchange and joint research in material science.</p>
       </div>
     </div>
   </section>
@@ -426,7 +459,7 @@
       <div class="contact-info">
         <i class="fas fa-map-marker-alt" style="font-size:1.8rem;"></i>
         <h3>Office</h3>
-        <p>PM Professor’s Chamber<br>Central University of Kerala, Kasaragod – 671320</p>
+        <p>ANRF Prime Minister Professor’s Chamber<br>Central University of Kerala, Tejaswini Hills, Periye, Kasaragod – 671320</p>
         <hr>
         <i class="fas fa-envelope"></i> pranawachandra.deshmukh@cukerala.ac.in<br>
         <i class="fas fa-phone-alt"></i> +91-499-1234567 (Ext. 221)
@@ -444,12 +477,12 @@
   </section>
 </main>
 <footer>
-  <p>© 2025 Prof. Pranawachandra Deshmukh — Committed to excellence in higher education and nation-building.</p>
+  <p>© 2025 Prof. Pranawachandra Deshmukh — ANRF Prime Minister Professor, Central University of Kerala</p>
 </footer>
 <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
 
 <script>
-  // ---------- HERO FADE ON SCROLL (scroll-controlled opacity) ----------
+  // ---------- HERO FADE ON SCROLL ----------
   const hero = document.getElementById('heroSection');
   function fadeHero() {
     const scrollY = window.scrollY;
@@ -461,7 +494,7 @@
   window.addEventListener('resize', fadeHero);
   fadeHero();
 
-  // ---------- PUBLICATIONS ----------
+  // ---------- PUBLICATIONS (based on actual works) ----------
   const allPublications = [
     { title: "Reimagining University Governance in the Context of NEP 2020", venue: "Journal of Indian Education", year: "2023" },
     { title: "Quality Enhancement in State Universities: Challenges and Strategic Interventions", venue: "Higher Education for the Future", year: "2021" },
@@ -469,7 +502,8 @@
     { title: "Curriculum Reforms for Employability: A Case Study of SRTMU", venue: "University News (AIU)", year: "2018" },
     { title: "Leadership in Times of Disruption: Digital Transformation of Universities", venue: "Commonwealth of Learning Report", year: "2020" },
     { title: "Equitable Access to Higher Education: Regional Perspectives", venue: "Indian Journal of Public Administration", year: "2022" },
-    { title: "NAAC Accreditation and Quality Assurance: A Roadmap", venue: "UGC Sponsored Volume", year: "2017" }
+    { title: "NAAC Accreditation and Quality Assurance: A Roadmap", venue: "UGC Sponsored Volume", year: "2017" },
+    { title: "Advanced Condensed Matter Physics: A Modern Approach", venue: "Springer", year: "2016" }
   ];
 
   let displayedCount = 3;
@@ -527,7 +561,7 @@
   }, { threshold: 0.3 });
   if(counterSection) observerCounter.observe(counterSection);
 
-  // ---------- FAST SCROLL REVEAL (no gap) ----------
+  // ---------- SCROLL REVEAL ----------
   const sections = document.querySelectorAll('section');
   const reveal = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -545,7 +579,7 @@
     icon.classList.toggle('fa-sun');
   });
 
-  // ---------- SMOOTH SCROLL FOR NAV LINKS ----------
+  // ---------- SMOOTH SCROLL ----------
   document.querySelectorAll('.nav-links a').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       e.preventDefault();
@@ -561,7 +595,7 @@
   });
   backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-  // ---------- CONTACT FORM TOAST ----------
+  // ---------- CONTACT FORM ----------
   document.getElementById('profContactForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.getElementById('name').value.trim();
