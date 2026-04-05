@@ -22,6 +22,7 @@
       --accent-glow: rgba(44, 110, 158, 0.2);
       --border-light: rgba(255, 255, 255, 0.4);
       --card-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+      --section-gradient: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
     }
 
     body.dark {
@@ -33,6 +34,7 @@
       --accent-glow: rgba(91, 155, 197, 0.25);
       --border-light: rgba(30, 41, 59, 0.5);
       --card-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5);
+      --section-gradient: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 100%);
     }
 
     body {
@@ -182,7 +184,7 @@
       margin-top: 0.8rem;
     }
 
-    /* ---- SECTIONS: only first section overlaps hero ---- */
+    /* ---- SECTIONS: all sections have a subtle gradient background (like Biography) ---- */
     section {
       max-width: 1280px;
       margin: 4rem auto 0 auto;
@@ -192,7 +194,8 @@
       transition: opacity 0.5s ease, transform 0.5s ease;
       position: relative;
       z-index: 3;
-      background: transparent;
+      background: var(--section-gradient);
+      border-radius: 2rem;
     }
     #about {
       margin-top: -15vh;
@@ -228,17 +231,6 @@
       max-width: 280px;
       border-radius: 2rem;
     }
-    .about-image::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to right, rgba(255,255,255,0.2), transparent);
-      pointer-events: none;
-      border-radius: 2rem;
-    }
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -266,6 +258,10 @@
     .card p {
       line-height: 1.8;
       text-align: justify;
+    }
+    /* Small gap between heading and first paragraph in current-role card */
+    #current-role .card h3 {
+      margin-bottom: 1.2rem;
     }
     .btn {
       background: var(--accent-light);
@@ -493,15 +489,14 @@
     <h2 class="section-title"><i class="fas fa-chalkboard-user"></i> Present Position: ANRF Prime Minister Professor</h2>
     <div class="card" style="text-align:center;">
       <!-- <i class="fas fa-university" style="font-size:2.5rem;"></i> -->
-      <h3>ANRF Prime Minister Professor – Central University of Kerala</h3>
-<p> <p>
+      <h3>ANRF PM Professor – Central University of Kerala</h3>
       <p><strong>About the role:</strong> The ANRF (Anusandhan National Research Foundation) Prime Minister’s Scheme for Mentoring Young Professors is a prestigious national initiative to bring eminent academicians and former Vice-Chancellors to central universities. These distinguished professors mentor early‑career faculty, design innovative curricula, and lead policy‑oriented research.</p>
       <p>Prof. Deshmukh’s responsibilities include: guiding interdisciplinary research in physics and material science, advising the university on NEP 2020 implementation, conducting high‑level workshops for faculty development, and fostering international collaborations. He also teaches advanced courses in condensed matter physics and higher education governance.</p>
       <p><strong>Office:</strong> Tejaswini Hills, Periye, Kasaragod – 671320, Kerala, India</p>
     </div>
   </section>
 
-  <!-- NEW SECTION: Core Areas of Work -->
+  <!-- Core Areas of Work -->
   <section id="work-areas">
     <h2 class="section-title"><i class="fas fa-microscope"></i> Core Areas of Work</h2>
     <div class="cards-grid">
