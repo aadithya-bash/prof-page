@@ -15,18 +15,18 @@
 
     :root {
       --bg-light: #f9fafc;
-      --surface-light: rgba(255, 255, 255, 0.7);
+      --surface-light: rgba(255, 255, 255, 0.3);   /* 30% glassy */
       --text-primary-light: #0a0f1c;
       --text-secondary-light: #2c3e4e;
       --accent-light: #2c6e9e;
       --accent-glow: rgba(44, 110, 158, 0.2);
-      --border-light: rgba(255, 255, 255, 0.3);
+      --border-light: rgba(255, 255, 255, 0.4);
       --card-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
     }
 
     body.dark {
       --bg-light: #0b1120;
-      --surface-light: rgba(17, 24, 39, 0.75);
+      --surface-light: rgba(17, 24, 39, 0.3);    /* 30% glassy dark */
       --text-primary-light: #f1f5f9;
       --text-secondary-light: #cbd5e1;
       --accent-light: #5b9bc5;
@@ -43,7 +43,7 @@
       scroll-behavior: smooth;
     }
 
-    /* ---- GLASSY TOP BAR (iOS style) ---- */
+    /* ---- GLASSY TOP BAR (always 60% glassy, each nav item as separate pill) ---- */
     .top-bar {
       position: sticky;
       top: 1rem;
@@ -51,11 +51,10 @@
       display: flex;
       justify-content: center;
       margin: 0 1.5rem;
-      transition: all 0.2s;
     }
     .top-bar-container {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.6);   /* 60% glassy base */
+      backdrop-filter: blur(16px);
       border-radius: 50px;
       padding: 0.6rem 1.8rem;
       width: 100%;
@@ -65,22 +64,12 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 1rem;
-      transition: background 0.2s;
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.4);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
     body.dark .top-bar-container {
-      background: rgba(17, 24, 39, 0.5);
+      background: rgba(17, 24, 39, 0.6);
       border-color: rgba(255, 255, 255, 0.1);
-    }
-    /* Slightly more solid on scroll */
-    .top-bar.scrolled .top-bar-container {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(16px);
-      border-color: rgba(0, 0, 0, 0.1);
-    }
-    body.dark .top-bar.scrolled .top-bar-container {
-      background: rgba(17, 24, 39, 0.9);
     }
     .logo-area {
       display: flex;
@@ -98,38 +87,44 @@
     }
     .nav-links {
       display: flex;
-      gap: 1.8rem;
+      gap: 0.8rem;
       align-items: center;
       flex-wrap: wrap;
     }
-    .nav-links a {
+    /* Each nav link as a separate glassy pill */
+    .nav-links a, .theme-toggle {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(8px);
+      padding: 0.5rem 1.2rem;
+      border-radius: 2rem;
       text-decoration: none;
       font-weight: 500;
       color: var(--text-primary-light);
       transition: 0.2s;
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      font-size: 0.9rem;
     }
-    .nav-links a:hover {
+    .nav-links a:hover, .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.45);
       color: var(--accent-light);
     }
-    .theme-toggle {
-      background: rgba(255,255,255,0.3);
-      border: none;
-      border-radius: 2rem;
-      padding: 0.4rem 1rem;
-      cursor: pointer;
-      backdrop-filter: blur(4px);
+    body.dark .nav-links a, body.dark .theme-toggle {
+      background: rgba(0, 0, 0, 0.3);
+      border-color: rgba(255,255,255,0.1);
     }
 
-    /* ---- HERO SECTION (fades on scroll) ---- */
+    /* ---- HERO SECTION (fades on scroll + bottom gradient line) ---- */
     .hero {
       position: relative;
-      min-height: 85vh;
+      min-height: 100vh;
       display: flex;
-      align-items: center;
+      align-items: flex-end;  /* push content to bottom */
       background: url('PCD.png') center center / cover no-repeat;
       transition: opacity 0.05s linear;
       will-change: opacity;
-      margin-top: -1rem; /* to blend with top bar gap */
+      margin-top: -1rem;
     }
     .hero::before {
       content: '';
@@ -141,14 +136,27 @@
       background: rgba(0, 0, 0, 0.45);
       z-index: 1;
     }
+    /* Subtle bottom gradient line for aesthetics */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      background: linear-gradient(to top, rgba(0,0,0,0.15), transparent);
+      z-index: 1;
+      pointer-events: none;
+    }
     .hero-content {
       position: relative;
       z-index: 2;
       max-width: 1280px;
       margin: 0 auto;
-      padding: 0 2rem;
+      padding: 0 2rem 8rem 5%;  /* bottom padding moves text down, left indent */
       color: white;
       text-align: left;
+      width: 100%;
       animation: fadeUp 0.8s ease-out;
     }
     @keyframes fadeUp {
@@ -208,7 +216,7 @@
     }
     .card {
       background: var(--surface-light);
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(12px);
       border-radius: 1.5rem;
       padding: 2rem;
       border: 1px solid var(--border-light);
@@ -240,7 +248,7 @@
       gap: 1.5rem;
       text-align: center;
       background: var(--surface-light);
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(12px);
       padding: 2rem;
       border-radius: 2rem;
       margin: 2rem 0;
@@ -259,7 +267,7 @@
     .contact-info, .contact-form {
       flex: 1;
       background: var(--surface-light);
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(12px);
       border-radius: 1.8rem;
       padding: 2rem;
       border: 1px solid var(--border-light);
@@ -315,16 +323,18 @@
     }
     @media (max-width: 768px) {
       .hero-content h1 { font-size: 2.2rem; white-space: normal; }
-      .top-bar-container { flex-direction: column; align-items: stretch; text-align: center; }
+      .hero-content { padding-bottom: 4rem; padding-left: 5%; }
+      .top-bar-container { flex-direction: column; align-items: stretch; border-radius: 2rem; }
       .nav-links { justify-content: center; }
       .logo-area { justify-content: center; }
+      .hero-content h2, .hero-content .dept { font-size: 1.2rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- Glassy top bar -->
-<div class="top-bar" id="topBar">
+<!-- Glassy top bar with separate pill links -->
+<div class="top-bar">
   <div class="top-bar-container">
     <div class="logo-area">
       <img src="CU logo.png" alt="CUK Logo">
@@ -341,7 +351,7 @@
   </div>
 </div>
 
-<!-- Hero section with scroll‑controlled opacity -->
+<!-- Hero section with scroll‑controlled opacity + bottom gradient -->
 <div class="hero" id="heroSection">
   <div class="hero-content">
     <h2>Prime Minister Professor</h2>
@@ -352,7 +362,6 @@
 </div>
 
 <main>
-  <!-- About section (appears immediately after hero, no gap) -->
   <section id="about">
     <h2 class="section-title"><i class="fas fa-user-graduate"></i> Biography</h2>
     <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
@@ -407,7 +416,7 @@
 
   <section id="publications">
     <h2 class="section-title"><i class="fas fa-book-open"></i> Key Publications & Reports</h2>
-    <div class="pub-list" id="pubContainer" style="background:var(--surface-light); backdrop-filter:blur(8px); border-radius:1.5rem; padding:1.5rem; border:1px solid var(--border-light);"></div>
+    <div class="pub-list" id="pubContainer" style="background:var(--surface-light); backdrop-filter:blur(12px); border-radius:1.5rem; padding:1.5rem; border:1px solid var(--border-light);"></div>
     <div style="text-align:center; margin-top:2rem;"><button id="loadMorePubs" class="btn">Load More Publications</button></div>
   </section>
 
@@ -444,23 +453,13 @@
   const hero = document.getElementById('heroSection');
   function fadeHero() {
     const scrollY = window.scrollY;
-    const maxFade = 350; // fully transparent after 350px scroll
+    const maxFade = 350;
     let opacity = 1 - Math.min(1, scrollY / maxFade);
     hero.style.opacity = Math.max(0, opacity);
   }
   window.addEventListener('scroll', fadeHero);
   window.addEventListener('resize', fadeHero);
   fadeHero();
-
-  // ---------- TOP BAR STYLE CHANGE ON SCROLL ----------
-  const topBar = document.getElementById('topBar');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      topBar.classList.add('scrolled');
-    } else {
-      topBar.classList.remove('scrolled');
-    }
-  });
 
   // ---------- PUBLICATIONS ----------
   const allPublications = [
