@@ -43,7 +43,7 @@
       scroll-behavior: smooth;
     }
 
-    /* ---- GLASSY TOP BAR (always 60% glassy, each nav item as separate pill) ---- */
+    /* ---- GLASSY TOP BAR (always 60% glassy) ---- */
     .top-bar {
       position: sticky;
       top: 1rem;
@@ -114,17 +114,18 @@
       border-color: rgba(255,255,255,0.1);
     }
 
-    /* ---- HERO SECTION (fades on scroll + bottom gradient) ---- */
+    /* ---- HERO SECTION (gradient fade from 4/6 to bottom, content at 7/12) ---- */
     .hero {
       position: relative;
-      min-height: 100vh;
+      height: 100vh;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       background: url('PCD.png') center center / cover no-repeat;
       transition: opacity 0.05s linear;
       will-change: opacity;
       margin-top: -1rem;
     }
+    /* Gradient mask: from 4/6 (66.6%) to bottom fully transparent */
     .hero::before {
       content: '';
       position: absolute;
@@ -141,25 +142,44 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 60px;
-      background: linear-gradient(to top, rgba(0,0,0,0.15), transparent);
-      z-index: 1;
+      height: 100%;
+      background: linear-gradient(to bottom, 
+        transparent 0%, 
+        transparent 66.6%, 
+        rgba(0,0,0,0.2) 80%, 
+        transparent 100%);
+      /* Actually we want the image to fade out, not black. Use mask instead. */
       pointer-events: none;
+      z-index: 1;
+    }
+    /* Mask for the background image to fade at bottom */
+    .hero {
+      mask-image: linear-gradient(to bottom, 
+        black 0%, 
+        black 66.6%, 
+        transparent 83.3%, 
+        transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, 
+        black 0%, 
+        black 66.6%, 
+        transparent 83.3%, 
+        transparent 100%);
     }
     .hero-content {
-      position: relative;
+      position: absolute;
+      top: 58.33%; /* 7/12 = 58.33% */
+      left: 3%;
+      transform: translateY(-50%);
       z-index: 2;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 1.5rem 6rem 5%;
+      max-width: 600px;
       color: white;
       text-align: left;
-      width: 100%;
+      width: auto;
       animation: fadeUp 0.8s ease-out;
     }
     @keyframes fadeUp {
       0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 1; transform: translateY(-50%); }
     }
     .hero-content h2 {
       font-size: 1.3rem;
@@ -187,14 +207,17 @@
       margin-top: 0.8rem;
     }
 
-    /* ---- SECTIONS (glass cards) ---- */
+    /* ---- SECTIONS (start at 5/6 of hero, so no gap) ---- */
     section {
       max-width: 1280px;
-      margin: 0 auto;
+      margin: -10vh auto 0 auto; /* negative margin pulls section up to overlap hero fade */
       padding: 3rem 1.5rem;
       opacity: 0;
       transform: translateY(15px);
       transition: opacity 0.5s ease, transform 0.5s ease;
+      position: relative;
+      z-index: 3;
+      background: transparent;
     }
     section.visible {
       opacity: 1;
@@ -205,6 +228,44 @@
       margin-bottom: 1.5rem;
       border-left: 5px solid var(--accent-light);
       padding-left: 1rem;
+    }
+
+    /* About section with right image and left gradient */
+    .about-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+    .about-text {
+      flex: 2;
+      line-height: 1.6;
+      position: relative;
+      z-index: 2;
+    }
+    .about-image {
+      flex: 1;
+      text-align: right;
+      position: relative;
+    }
+    .about-image img {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 2rem;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    /* Gradient overlay on image for blending */
+    .about-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, rgba(255,255,255,0.2), transparent);
+      pointer-events: none;
+      border-radius: 2rem;
     }
     .cards-grid {
       display: grid;
@@ -312,14 +373,6 @@
       border-top: 1px solid var(--border-light);
       font-size: 0.8rem;
     }
-    .about-avatar {
-      width: 140px;
-      height: 140px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid var(--accent-light);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
     .external-links {
       margin-top: 1rem;
       display: flex;
@@ -333,6 +386,7 @@
       font-weight: 500;
       font-size: 0.9rem;
     }
+    /* Mobile adjustments */
     @media (max-width: 768px) {
       .top-bar-container {
         flex-direction: column;
@@ -347,8 +401,9 @@
         justify-content: center;
       }
       .hero-content {
-        padding-bottom: 4rem;
-        padding-left: 5%;
+        top: 58%;
+        left: 5%;
+        max-width: 90%;
       }
       .hero-content h1 {
         font-size: 2rem;
@@ -359,6 +414,26 @@
       .hero-content .dept {
         font-size: 1rem;
       }
+      .about-container {
+        flex-direction: column;
+      }
+      .about-text {
+        order: 2;
+        text-align: justify;
+      }
+      .about-image {
+        order: 1;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+      .about-image img {
+        width: 140px;
+        border-radius: 50%;
+        border: 3px solid var(--accent-light);
+      }
+      .about-image::before {
+        display: none;
+      }
       .section-title {
         font-size: 1.5rem;
       }
@@ -368,10 +443,6 @@
       }
       .counter-item h3 {
         font-size: 1.5rem;
-      }
-      .about-avatar {
-        width: 120px;
-        height: 120px;
       }
     }
   </style>
@@ -396,7 +467,7 @@
   </div>
 </div>
 
-<!-- Hero section -->
+<!-- Hero section with gradient fade and text at 7/12 -->
 <div class="hero" id="heroSection">
   <div class="hero-content">
     <h2>ANRF Prime Minister Professor</h2>
@@ -409,8 +480,8 @@
 <main>
   <section id="about">
     <h2 class="section-title"><i class="fas fa-user-graduate"></i> Biography</h2>
-    <div style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
-      <div style="flex:2; line-height:1.6;">
+    <div class="about-container">
+      <div class="about-text">
         <p><strong>Prof. Pranawachandra Deshmukh</strong> (born 1957) is an Indian academic administrator and physicist. He currently serves as <strong>ANRF Prime Minister Professor at Central University of Kerala</strong>. He was the former Vice-Chancellor of Swami Ramanand Teerth Marathwada University (SRTMU), Nanded.</p>
         <p>He earned his M.Sc. in Physics and Ph.D. from Dr. Babasaheb Ambedkar Marathwada University. With over 42 years of teaching and research experience, he has been instrumental in implementing NEP 2020 reforms, establishing research centres, and promoting inclusive education. He has guided 28 doctoral students and published extensively in condensed matter physics, material science, and higher education governance.</p>
         <p>Prof. Deshmukh has served on numerous national committees, including UGC, NAAC, and AICTE, and has received multiple lifetime achievement awards for his contributions to Indian higher education and scientific research.</p>
@@ -419,12 +490,12 @@
           <a href="https://scholar.google.com/citations?hl=en&user=vj1Xi9QAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
         </div>
       </div>
-      <div style="flex:1; text-align:center;">
-        <img src="PCD.png" alt="Prof. Deshmukh" class="about-avatar">
+      <div class="about-image">
+        <img src="prof_alt.png" alt="Prof. Deshmukh">
       </div>
     </div>
 
-    <!-- Integrated counter grid with citations -->
+    <!-- Counter grid with citations -->
     <div class="counter-grid">
       <div class="counter-item"><h3><span class="count-num" data-target="42">0</span>+</h3><p>Years of Service</p></div>
       <div class="counter-item"><h3><span class="count-num" data-target="28">0</span></h3><p>PhD Scholars</p></div>
@@ -503,7 +574,7 @@
 <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
 
 <script>
-  // ---------- HERO FADE ON SCROLL ----------
+  // ---------- HERO FADE ON SCROLL (opacity) ----------
   const hero = document.getElementById('heroSection');
   function fadeHero() {
     const scrollY = window.scrollY;
@@ -556,7 +627,7 @@
   });
   renderPublications();
 
-  // ---------- COUNTER ANIMATION (including citation numbers) ----------
+  // ---------- COUNTER ANIMATION ----------
   const counters = document.querySelectorAll('.count-num');
   let counted = false;
   const counterSection = document.querySelector('.counter-grid');
