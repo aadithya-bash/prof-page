@@ -15,7 +15,7 @@
 
     :root {
       --bg-light: #f9fafc;
-      --surface-light: rgba(255, 255, 255, 0.15);
+      --surface-light: rgba(255, 255, 255, 0.3);
       --text-primary-light: #0a0f1c;
       --text-secondary-light: #2c3e4e;
       --accent-light: #2c6e9e;
@@ -27,7 +27,7 @@
 
     body.dark {
       --bg-light: #0b1120;
-      --surface-light: rgba(17, 24, 39, 0.15);
+      --surface-light: rgba(17, 24, 39, 0.3);
       --text-primary-light: #f1f5f9;
       --text-secondary-light: #cbd5e1;
       --accent-light: #5b9bc5;
@@ -194,8 +194,7 @@
       transition: opacity 0.5s ease, transform 0.5s ease;
       position: relative;
       z-index: 3;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(8px);
+      background: var(--section-gradient);
       border-radius: 2rem;
     }
     #about {
@@ -209,7 +208,6 @@
       font-size: 1.8rem;
       margin-bottom: 2rem;
       border-left: 5px solid var(--accent-light);
-      --border-light: rgba(255, 255, 255, 0.2);
       padding-left: 1rem;
     }
 
@@ -233,14 +231,13 @@
       max-width: 280px;
       border-radius: 2rem;
     }
-    /* Core Areas grid: force 3 columns on desktop, auto on mobile */
+    /* Core Areas grid: force 3 columns on desktop */
     #work-areas .cards-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
       margin-top: 1.5rem;
     }
-    /* Career section also has 3 cards, but we keep its default (auto-fit) for consistency, but it will also show 3 columns because 3 items. */
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -249,7 +246,7 @@
     }
     .card {
       background: var(--surface-light);
-      backdrop-filter: blur(18px);
+      backdrop-filter: blur(12px);
       border-radius: 1.5rem;
       padding: 2rem;
       border: 1px solid var(--border-light);
@@ -292,7 +289,7 @@
       gap: 1.5rem;
       text-align: center;
       background: var(--surface-light);
-      backdrop-filter: blur(18px);
+      backdrop-filter: blur(12px);
       padding: 2rem;
       border-radius: 2rem;
       margin: 2rem 0;
@@ -395,8 +392,9 @@
       }
       .hero-content {
         top: 58%;
-        left: 5%;
-        max-width: 90%;
+        left: 0;               /* shifted left by 20% (from 5% to 0) */
+        padding-left: 1rem;    /* keep text from touching edge */
+        max-width: 95%;
       }
       .hero-content h1 {
         font-size: 2rem;
@@ -425,7 +423,6 @@
       .counter-item h3 {
         font-size: 1.5rem;
       }
-      /* On mobile, core areas grid becomes 1 or 2 columns */
       #work-areas .cards-grid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       }
@@ -438,7 +435,7 @@
     }
   </style>
 </head>
-<body class="dark">
+<body class="dark">   <!-- Dark mode is now default -->
 
 <!-- Glassy top bar -->
 <div class="top-bar">
@@ -509,7 +506,7 @@
     </div>
   </section>
 
-  <!-- Core Areas of Work (now forced to 3 columns on desktop) -->
+  <!-- Core Areas of Work -->
   <section id="work-areas">
     <h2 class="section-title"><i class="fas fa-microscope"></i> Core Areas of Work</h2>
     <div class="cards-grid">
@@ -602,7 +599,7 @@
 <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
 
 <script>
-  // (JavaScript unchanged from previous version – works perfectly)
+  // ---------- HERO FADE ON SCROLL ----------
   const hero = document.getElementById('heroSection');
   function fadeHero() {
     const scrollY = window.scrollY;
@@ -614,6 +611,7 @@
   window.addEventListener('resize', fadeHero);
   fadeHero();
 
+  // ---------- PUBLICATIONS ----------
   const allPublications = [
     { title: "Reimagining University Governance in the Context of NEP 2020", venue: "Journal of Indian Education", year: "2023" },
     { title: "Quality Enhancement in State Universities: Challenges and Strategic Interventions", venue: "Higher Education for the Future", year: "2021" },
@@ -659,6 +657,7 @@
   });
   renderPublications();
 
+  // ---------- COUNTER ANIMATION ----------
   const counters = document.querySelectorAll('.count-num');
   let counted = false;
   const counterSection = document.querySelector('.counter-grid');
@@ -684,6 +683,7 @@
   }, { threshold: 0.3 });
   if (counterSection) observerCounter.observe(counterSection);
 
+  // ---------- SCROLL REVEAL ----------
   const sections = document.querySelectorAll('section');
   const reveal = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -692,14 +692,17 @@
   }, { threshold: 0.05, rootMargin: "0px 0px -10px 0px" });
   sections.forEach(s => reveal.observe(s));
 
+  // ---------- DARK MODE TOGGLE (now starting in dark mode) ----------
   const toggleBtn = document.getElementById('darkmode-toggle');
   toggleBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark');
     const icon = toggleBtn.querySelector('i');
-    icon.classList.toggle('fa-moon');
     icon.classList.toggle('fa-sun');
+    icon.classList.toggle('fa-moon');
+    toggleBtn.innerHTML = document.body.classList.contains('dark') ? '<i class="fas fa-sun"></i> Light' : '<i class="fas fa-moon"></i> Dark';
   });
 
+  // ---------- SMOOTH SCROLL ----------
   document.querySelectorAll('.nav-links a').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       e.preventDefault();
@@ -708,12 +711,14 @@
     });
   });
 
+  // ---------- BACK TO TOP ----------
   const backBtn = document.getElementById('backToTop');
   window.addEventListener('scroll', () => {
     backBtn.style.opacity = window.scrollY > 500 ? '1' : '0';
   });
   backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
+  // ---------- CONTACT FORM TOAST ----------
   document.getElementById('profContactForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.getElementById('name').value.trim();
