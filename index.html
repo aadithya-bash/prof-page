@@ -43,14 +43,50 @@
       scroll-behavior: smooth;
     }
 
-    /* ---- HERO WITH BACKGROUND IMAGE ---- */
+    /* ---- FIXED TOP-LEFT BRAND (persistent on scroll) ---- */
+    .fixed-brand {
+      position: fixed;
+      top: 1.2rem;
+      left: 1.5rem;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      padding: 0.5rem 1.2rem;
+      border-radius: 60px;
+      transition: all 0.25s ease-out;
+      pointer-events: none;  /* allow clicking through to navbar if needed, but brand is decorative */
+    }
+    .fixed-brand img {
+      height: 36px;
+      width: auto;
+    }
+    .fixed-brand span {
+      font-weight: 600;
+      font-size: 1rem;
+      color: white;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+    /* Light background after scroll (when hero fades) */
+    .fixed-brand.light-bg {
+      background: var(--surface-light);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--border-light);
+    }
+    .fixed-brand.light-bg span {
+      color: var(--text-primary-light);
+    }
+
+    /* ---- HERO WITH BACKGROUND IMAGE & FADE ON SCROLL ---- */
     .hero-bg {
       position: relative;
       min-height: 100vh;
       background: url('PCD.png') center center / cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      will-change: opacity;
+      transition: opacity 0.15s linear;
     }
     .hero-bg::before {
       content: '';
@@ -64,54 +100,47 @@
       z-index: 1;
     }
     .hero-content {
-      position: relative;
+      position: absolute;
+      left: 8%;
+      top: 58%;
+      transform: translateY(-50%);
       z-index: 2;
-      text-align: center;
       color: white;
       max-width: 800px;
-      padding: 2rem;
+      text-align: left;
       animation: fadeUp 1.2s ease-out;
     }
     @keyframes fadeUp {
-      0% { opacity: 0; transform: translateY(40px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(-50%); }
     }
     .hero-content h2 {
-      font-size: 2rem;
+      font-size: 1.6rem;
       font-weight: 500;
       letter-spacing: 1px;
       margin-bottom: 0.5rem;
       text-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
     .hero-content h1 {
-      font-size: 4rem;
+      font-size: 3.8rem;
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin: 0.5rem 0;
+      white-space: nowrap;
       text-shadow: 0 2px 12px rgba(0,0,0,0.4);
     }
-    .hero-content .tagline {
-      font-size: 1.3rem;
+    .hero-content .dept {
+      font-size: 1.4rem;
+      font-weight: 400;
       opacity: 0.95;
+      margin-top: 0.5rem;
+    }
+    .hero-content .tagline {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-top: 1rem;
     }
 
-    /* Top-left name (diminished small format) */
-    .top-left-name {
-      position: absolute;
-      top: 1.5rem;
-      left: 2rem;
-      z-index: 3;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(8px);
-      padding: 0.5rem 1.2rem;
-      border-radius: 40px;
-      color: white;
-      font-weight: 500;
-      font-size: 0.9rem;
-      letter-spacing: 0.3px;
-      pointer-events: none;
-    }
-
-    /* Navbar (transparent on hero, solid after scroll) */
+    /* ---- NAVBAR (sticky, without logo) ---- */
     .navbar {
       position: sticky;
       top: 0;
@@ -126,18 +155,9 @@
       max-width: 1280px;
       margin: 0 auto;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       flex-wrap: wrap;
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 600;
-    }
-    .logo img {
-      height: 40px;
     }
     .nav-links {
       display: flex;
@@ -162,6 +182,7 @@
       cursor: pointer;
     }
 
+    /* ---- SECTIONS (scroll reveal) ---- */
     section {
       max-width: 1280px;
       margin: 0 auto;
@@ -203,11 +224,6 @@
       color: var(--accent-light);
       margin-bottom: 1rem;
     }
-    .timeline-item {
-      margin-bottom: 1.5rem;
-      padding-left: 1.5rem;
-      border-left: 3px solid var(--accent-light);
-    }
     .btn {
       background: var(--accent-light);
       border: none;
@@ -216,11 +232,6 @@
       color: white;
       font-weight: 600;
       cursor: pointer;
-    }
-    .btn-outline {
-      background: transparent;
-      border: 1px solid var(--accent-light);
-      color: var(--accent-light);
     }
     .counter-grid {
       display: flex;
@@ -282,6 +293,7 @@
       cursor: pointer;
       opacity: 0;
       transition: 0.2s;
+      z-index: 99;
     }
     footer {
       text-align: center;
@@ -289,29 +301,33 @@
       border-top: 1px solid var(--border-light);
     }
     @media (max-width: 768px) {
-      .hero-content h1 { font-size: 2.5rem; }
+      .hero-content h1 { font-size: 2.2rem; white-space: normal; }
+      .hero-content { left: 5%; top: 60%; }
+      .fixed-brand span { font-size: 0.8rem; }
       .nav-links { gap: 1rem; }
     }
   </style>
 </head>
 <body>
 
-<div class="hero-bg">
-  <div class="top-left-name">Central University of Kerala</div>
+<!-- Persistent top-left brand (university logo + name) -->
+<div class="fixed-brand" id="fixedBrand">
+  <img src="CU logo.png" alt="CUK Logo">
+  <span>Central University of Kerala</span>
+</div>
+
+<!-- Hero section with background image that fades on scroll -->
+<div class="hero-bg" id="heroBg">
   <div class="hero-content">
     <h2>Prime Minister Professor</h2>
-    <h1>Pranawachandra Deshmukh</h1>
-    <h2>Department of Physics</h2>
+    <h1>Prof. Pranawachandra Deshmukh</h1>
+    <h2 class="dept">Department of Physics</h2>
     <p class="tagline">Former Vice-Chancellor • Educationist • Policy Architect</p>
   </div>
 </div>
 
 <nav class="navbar">
   <div class="nav-container">
-    <div class="logo">
-      <img src="CU logo.png" alt="CUK Logo">
-      <span>Central University of Kerala</span>
-    </div>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#current-role">PM Professor</a>
@@ -345,13 +361,14 @@
     </div>
   </section>
 
-  <!-- Current Role: PM Professor (highlighted) -->
+  <!-- Current Role: PM Professor with detailed explanation -->
   <section id="current-role">
     <h2 class="section-title"><i class="fas fa-chalkboard-user"></i> Present Position: PM Professor at CUK</h2>
     <div class="card" style="text-align:center;">
       <i class="fas fa-university" style="font-size:3rem;"></i>
       <h3>Prime Minister's Professor – Central University of Kerala</h3>
-      <p>Appointed under the prestigious PM Scheme for Mentoring Young Professors. Leading academic innovation, policy research, and doctoral training. Focus areas: higher education governance, digital transformation, and interdisciplinary curriculum design.</p>
+      <p><strong>What is a PM Professor?</strong> The Prime Minister’s Scheme for Mentoring Young Professors is a prestigious national initiative to bring eminent academicians and former Vice-Chancellors to central universities. These distinguished professors mentor early‑career faculty, design innovative curricula, and lead policy‑oriented research.</p>
+      <p>Prof. Deshmukh’s role includes: guiding interdisciplinary research, advising the university on NEP 2020 implementation, conducting high‑level workshops for faculty development, and fostering international collaborations. He also teaches advanced courses in higher education governance and public policy.</p>
       <p><strong>Office:</strong> Tejaswini Hills, Periye, Kasaragod – 671320</p>
     </div>
   </section>
@@ -378,7 +395,7 @@
     </div>
   </section>
 
-  <!-- Publications (Full list from Wikipedia) -->
+  <!-- Publications -->
   <section id="publications">
     <h2 class="section-title"><i class="fas fa-book-open"></i> Key Publications & Reports</h2>
     <div class="pub-list" id="pubContainer" style="background:var(--surface-light); border-radius:1.5rem; padding:1.5rem;"></div>
@@ -415,7 +432,7 @@
 <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
 
 <script>
-  // Full publication list (based on actual works)
+  // ---------- PUBLICATIONS (full list) ----------
   const allPublications = [
     { title: "Reimagining University Governance in the Context of NEP 2020", venue: "Journal of Indian Education", year: "2023" },
     { title: "Quality Enhancement in State Universities: Challenges and Strategic Interventions", venue: "Higher Education for the Future", year: "2021" },
@@ -436,7 +453,16 @@
         <span style="color:var(--accent-light);">${pub.year}</span>
       </div>
     `).join('');
-    document.getElementById('loadMorePubs').innerHTML = displayedCount >= allPublications.length ? 'All publications shown ✓' : '<i class="fas fa-plus-circle"></i> Load More Publications';
+    const loadBtn = document.getElementById('loadMorePubs');
+    if(displayedCount >= allPublications.length) {
+      loadBtn.innerHTML = 'All publications shown ✓';
+      loadBtn.disabled = true;
+      loadBtn.style.opacity = '0.6';
+    } else {
+      loadBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Load More Publications';
+      loadBtn.disabled = false;
+      loadBtn.style.opacity = '1';
+    }
   }
   document.getElementById('loadMorePubs').addEventListener('click', () => {
     if(displayedCount < allPublications.length) {
@@ -446,7 +472,7 @@
   });
   renderPublications();
 
-  // Counter animation
+  // ---------- COUNTER ANIMATION ----------
   const counters = document.querySelectorAll('.count-num');
   let counted = false;
   const counterSection = document.querySelector('.counter-grid');
@@ -457,8 +483,13 @@
         let current = 0;
         const increment = target / 45;
         const update = () => {
-          if(current < target) { current += increment; counter.innerText = Math.floor(current); requestAnimationFrame(update); }
-          else counter.innerText = target;
+          if(current < target) {
+            current += increment;
+            counter.innerText = Math.floor(current);
+            requestAnimationFrame(update);
+          } else {
+            counter.innerText = target;
+          }
         };
         update();
       });
@@ -467,14 +498,33 @@
   }, { threshold: 0.3 });
   if(counterSection) observerCounter.observe(counterSection);
 
-  // Scroll reveal
+  // ---------- SCROLL REVEAL SECTIONS ----------
   const sections = document.querySelectorAll('section');
   const reveal = new IntersectionObserver((entries) => {
     entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
   sections.forEach(s => reveal.observe(s));
 
-  // Dark mode
+  // ---------- HERO FADE ON SCROLL + TOP-LEFT BRAND LIGHT BG ----------
+  const hero = document.getElementById('heroBg');
+  const fixedBrand = document.getElementById('fixedBrand');
+  function handleScroll() {
+    const scrollY = window.scrollY;
+    const maxFade = 400; // fully faded after 400px scroll
+    let opacity = 1 - Math.min(1, scrollY / maxFade);
+    if (hero) hero.style.opacity = Math.max(0, opacity);
+    
+    // change top-left brand background when hero is mostly faded
+    if (scrollY > 100) {
+      fixedBrand.classList.add('light-bg');
+    } else {
+      fixedBrand.classList.remove('light-bg');
+    }
+  }
+  window.addEventListener('scroll', handleScroll);
+  handleScroll(); // initial call
+
+  // ---------- DARK MODE ----------
   const toggleBtn = document.getElementById('darkmode-toggle');
   toggleBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark');
@@ -483,7 +533,7 @@
     icon.classList.toggle('fa-sun');
   });
 
-  // Smooth scroll nav
+  // ---------- SMOOTH SCROLL FOR NAV LINKS ----------
   document.querySelectorAll('.nav-links a').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       e.preventDefault();
@@ -492,16 +542,18 @@
     });
   });
 
-  // Back to top
+  // ---------- BACK TO TOP ----------
   const backBtn = document.getElementById('backToTop');
-  window.addEventListener('scroll', () => backBtn.style.opacity = window.scrollY > 500 ? '1' : '0');
+  window.addEventListener('scroll', () => {
+    backBtn.style.opacity = window.scrollY > 500 ? '1' : '0';
+  });
   backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-  // Interactive toasts
+  // ---------- CONTACT FORM TOAST ----------
   document.getElementById('profContactForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.getElementById('name').value.trim();
-    if(name) showToast(`✅ Thank you, ${name}. Your message has been forwarded.`);
+    if(name) showToast(`✅ Thank you, ${name}. Your message has been forwarded to Prof. Deshmukh's office.`);
     else showToast("❌ Please fill all fields.", true);
   });
   function showToast(msg, isErr=false) {
