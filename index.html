@@ -237,7 +237,25 @@
       gap: 2rem;
       margin-top: 1.5rem;
     }
-    .card {
+   .elongated-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+     align-items: stretch;
+    }
+.elongated-grid .wide-card {
+  grid-column: span 2;
+}
+/* On mobile, revert to normal stacking */
+@media (max-width: 768px) {
+  .elongated-grid {
+    grid-template-columns: 1fr;
+  }
+  .elongated-grid .wide-card {
+    grid-column: auto;
+  }
+}
+   .card {
       background: var(--surface-light);
       backdrop-filter: blur(12px);
       border-radius: 1.5rem;
@@ -499,8 +517,8 @@
   <!-- Core Areas of Work -->
   <section id="work-areas">
     <h2 class="section-title"><i class="fas fa-microscope"></i> Core Areas of Work</h2>
-    <div class="cards-grid">
-      <div class="card">
+    <div class="cards-grid elongated-grid">
+      <div class="card wide-card">
         <i class="fas fa-flask"></i>
         <h3>Condensed Matter Physics</h3>
         <p>Research on electronic properties of advanced materials, superconductivity, and nanostructures. Published extensively in leading journals.</p>
@@ -525,14 +543,13 @@
         <h3>Education Policy & Reform</h3>
         <p>Advisory roles for UGC, AICTE; policy papers on autonomy, accountability, and equitable access to higher education.</p>
       </div>
-      <div class="card">
+      <div class="card wide-card">
         <i class="fas fa-users"></i>
         <h3>Mentorship & Capacity Building</h3>
         <p>Guided 28 doctoral scholars, established faculty development academies, and led workshops for early‑career researchers.</p>
       </div>
     </div>
   </section>
-
   <section id="career">
     <h2 class="section-title"><i class="fas fa-timeline"></i> Career & Leadership</h2>
     <div class="cards-grid">
