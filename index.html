@@ -50,20 +50,20 @@
       z-index: 200;
       display: flex;
       justify-content: center;
-      margin: 0 1.5rem;
+      margin: 0 1rem;
     }
     .top-bar-container {
       background: rgba(255, 255, 255, 0.6);
       backdrop-filter: blur(16px);
       border-radius: 50px;
-      padding: 0.6rem 1.8rem;
+      padding: 0.6rem 1.2rem;
       width: 100%;
       max-width: 1280px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.8rem;
       border: 1px solid rgba(255, 255, 255, 0.4);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
@@ -74,20 +74,20 @@
     .logo-area {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.6rem;
     }
     .logo-area img {
-      height: 36px;
+      height: 32px;
       width: auto;
     }
     .logo-area span {
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: var(--text-primary-light);
     }
     .nav-links {
       display: flex;
-      gap: 0.8rem;
+      gap: 0.6rem;
       align-items: center;
       flex-wrap: wrap;
     }
@@ -95,7 +95,7 @@
       display: inline-block;
       background: rgba(255, 255, 255, 0.25);
       backdrop-filter: blur(8px);
-      padding: 0.5rem 1.2rem;
+      padding: 0.4rem 1rem;
       border-radius: 2rem;
       text-decoration: none;
       font-weight: 500;
@@ -103,7 +103,7 @@
       transition: 0.2s;
       border: 1px solid rgba(255,255,255,0.2);
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
     .nav-links a:hover, .theme-toggle:hover {
       background: rgba(255, 255, 255, 0.45);
@@ -114,7 +114,7 @@
       border-color: rgba(255,255,255,0.1);
     }
 
-    /* ---- HERO SECTION (fades on scroll + bottom gradient line) ---- */
+    /* ---- HERO SECTION (fades on scroll + bottom gradient) ---- */
     .hero {
       position: relative;
       min-height: 100vh;
@@ -141,7 +141,7 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 80px;
+      height: 60px;
       background: linear-gradient(to top, rgba(0,0,0,0.15), transparent);
       z-index: 1;
       pointer-events: none;
@@ -151,7 +151,7 @@
       z-index: 2;
       max-width: 1280px;
       margin: 0 auto;
-      padding: 0 2rem 8rem 5%;
+      padding: 0 1.5rem 6rem 5%;
       color: white;
       text-align: left;
       width: 100%;
@@ -162,36 +162,36 @@
       100% { opacity: 1; transform: translateY(0); }
     }
     .hero-content h2 {
-      font-size: 1.6rem;
+      font-size: 1.3rem;
       font-weight: 500;
       letter-spacing: 1px;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.3rem;
       text-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
     .hero-content h1 {
-      font-size: 3.8rem;
+      font-size: 2.8rem;
       font-weight: 700;
-      margin: 0.5rem 0;
-      white-space: nowrap;
+      margin: 0.3rem 0;
+      white-space: normal;
       text-shadow: 0 2px 12px rgba(0,0,0,0.4);
     }
     .hero-content .dept {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       font-weight: 400;
       opacity: 0.95;
-      margin-top: 0.5rem;
+      margin-top: 0.3rem;
     }
     .hero-content .tagline {
-      font-size: 1rem;
+      font-size: 0.9rem;
       opacity: 0.85;
-      margin-top: 1rem;
+      margin-top: 0.8rem;
     }
 
     /* ---- SECTIONS (glass cards) ---- */
     section {
       max-width: 1280px;
       margin: 0 auto;
-      padding: 4rem 2rem;
+      padding: 3rem 1.5rem;
       opacity: 0;
       transform: translateY(15px);
       transition: opacity 0.5s ease, transform 0.5s ease;
@@ -201,22 +201,22 @@
       transform: translateY(0);
     }
     .section-title {
-      font-size: 2rem;
-      margin-bottom: 2rem;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
       border-left: 5px solid var(--accent-light);
       padding-left: 1rem;
     }
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
       margin-top: 1rem;
     }
     .card {
       background: var(--surface-light);
       backdrop-filter: blur(12px);
       border-radius: 1.5rem;
-      padding: 2rem;
+      padding: 1.5rem;
       border: 1px solid var(--border-light);
       box-shadow: var(--card-shadow);
       transition: all 0.3s ease;
@@ -233,46 +233,45 @@
     .btn {
       background: var(--accent-light);
       border: none;
-      padding: 0.7rem 1.8rem;
+      padding: 0.6rem 1.5rem;
       border-radius: 2rem;
       color: white;
       font-weight: 600;
       cursor: pointer;
     }
     .counter-grid {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
       text-align: center;
       background: var(--surface-light);
       backdrop-filter: blur(12px);
-      padding: 2rem;
+      padding: 1.5rem;
       border-radius: 2rem;
-      margin: 2rem 0;
+      margin: 1.5rem 0;
       border: 1px solid var(--border-light);
     }
     .counter-item h3 {
-      font-size: 2.5rem;
+      font-size: 2rem;
       font-weight: 700;
       color: var(--accent-light);
     }
     .contact-flex {
       display: flex;
       flex-wrap: wrap;
-      gap: 2rem;
+      gap: 1.5rem;
     }
     .contact-info, .contact-form {
       flex: 1;
       background: var(--surface-light);
       backdrop-filter: blur(12px);
-      border-radius: 1.8rem;
-      padding: 2rem;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
       border: 1px solid var(--border-light);
     }
     input, textarea {
       width: 100%;
-      padding: 0.8rem;
+      padding: 0.7rem;
       margin: 0.5rem 0;
       background: rgba(255,255,255,0.5);
       border: 1px solid var(--border-light);
@@ -281,22 +280,23 @@
     }
     .toast-msg {
       position: fixed;
-      bottom: 2rem;
-      right: 2rem;
+      bottom: 1rem;
+      right: 1rem;
       background: #10b981;
       color: white;
-      padding: 1rem 2rem;
+      padding: 0.8rem 1.5rem;
       border-radius: 2rem;
       z-index: 200;
+      font-size: 0.9rem;
     }
     .back-to-top {
       position: fixed;
-      bottom: 2rem;
-      left: 2rem;
+      bottom: 1rem;
+      left: 1rem;
       background: var(--accent-light);
       color: white;
-      width: 45px;
-      height: 45px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -308,50 +308,71 @@
     }
     footer {
       text-align: center;
-      padding: 2rem;
+      padding: 1.5rem;
       border-top: 1px solid var(--border-light);
+      font-size: 0.8rem;
     }
     .about-avatar {
-      width: 180px;
-      height: 180px;
+      width: 140px;
+      height: 140px;
       object-fit: cover;
       border-radius: 50%;
       border: 3px solid var(--accent-light);
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
-    .scholar-stats {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 1rem;
-      text-align: center;
-    }
-    .scholar-stats div {
-      background: rgba(255,255,255,0.2);
-      border-radius: 1rem;
-      padding: 0.8rem;
-      flex: 1;
-      margin: 0 0.5rem;
     }
     .external-links {
       margin-top: 1rem;
       display: flex;
       gap: 1rem;
       justify-content: center;
+      flex-wrap: wrap;
     }
     .external-links a {
       color: var(--accent-light);
       text-decoration: none;
       font-weight: 500;
+      font-size: 0.9rem;
     }
     @media (max-width: 768px) {
-      .hero-content h1 { font-size: 2.2rem; white-space: normal; }
-      .hero-content { padding-bottom: 4rem; padding-left: 5%; }
-      .top-bar-container { flex-direction: column; align-items: stretch; border-radius: 2rem; }
-      .nav-links { justify-content: center; }
-      .logo-area { justify-content: center; }
-      .hero-content h2, .hero-content .dept { font-size: 1.2rem; }
-      .scholar-stats { flex-direction: column; gap: 0.5rem; }
-      .scholar-stats div { margin: 0; }
+      .top-bar-container {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 0.8rem;
+      }
+      .logo-area {
+        justify-content: center;
+      }
+      .nav-links {
+        justify-content: center;
+      }
+      .hero-content {
+        padding-bottom: 4rem;
+        padding-left: 5%;
+      }
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      .hero-content h2 {
+        font-size: 1.1rem;
+      }
+      .hero-content .dept {
+        font-size: 1rem;
+      }
+      .section-title {
+        font-size: 1.5rem;
+      }
+      .counter-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+      }
+      .counter-item h3 {
+        font-size: 1.5rem;
+      }
+      .about-avatar {
+        width: 120px;
+        height: 120px;
+      }
     }
   </style>
 </head>
@@ -388,37 +409,37 @@
 <main>
   <section id="about">
     <h2 class="section-title"><i class="fas fa-user-graduate"></i> Biography</h2>
-    <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
-      <div style="flex:2; line-height:1.7;">
+    <div style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
+      <div style="flex:2; line-height:1.6;">
         <p><strong>Prof. Pranawachandra Deshmukh</strong> (born 1957) is an Indian academic administrator and physicist. He currently serves as <strong>ANRF Prime Minister Professor at Central University of Kerala</strong>. He was the former Vice-Chancellor of Swami Ramanand Teerth Marathwada University (SRTMU), Nanded.</p>
-        <p>He earned his M.Sc. in Physics and Ph.D. from Dr. Babasaheb Ambedkar Marathwada University. With over 42 years of teaching and research experience, he has been instrumental in implementing NEP 2020 reforms, establishing research centres, and promoting inclusive education. He has guided 28 doctoral students and published extensively in the fields of condensed matter physics, material science, and higher education governance.</p>
+        <p>He earned his M.Sc. in Physics and Ph.D. from Dr. Babasaheb Ambedkar Marathwada University. With over 42 years of teaching and research experience, he has been instrumental in implementing NEP 2020 reforms, establishing research centres, and promoting inclusive education. He has guided 28 doctoral students and published extensively in condensed matter physics, material science, and higher education governance.</p>
         <p>Prof. Deshmukh has served on numerous national committees, including UGC, NAAC, and AICTE, and has received multiple lifetime achievement awards for his contributions to Indian higher education and scientific research.</p>
         <div class="external-links">
           <a href="https://en.wikipedia.org/wiki/Pranawachandra_Deshmukh" target="_blank"><i class="fab fa-wikipedia-w"></i> Wikipedia</a>
           <a href="https://scholar.google.com/citations?hl=en&user=vj1Xi9QAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
-        </div>
-        <div class="scholar-stats">
-          <div><strong>Citations</strong><br>2435</div>
-          <div><strong>h-index</strong><br>25</div>
-          <div><strong>i10-index</strong><br>67</div>
         </div>
       </div>
       <div style="flex:1; text-align:center;">
         <img src="PCD.png" alt="Prof. Deshmukh" class="about-avatar">
       </div>
     </div>
+
+    <!-- Integrated counter grid with citations -->
     <div class="counter-grid">
       <div class="counter-item"><h3><span class="count-num" data-target="42">0</span>+</h3><p>Years of Service</p></div>
       <div class="counter-item"><h3><span class="count-num" data-target="28">0</span></h3><p>PhD Scholars</p></div>
       <div class="counter-item"><h3><span class="count-num" data-target="15">0</span></h3><p>National Committees</p></div>
       <div class="counter-item"><h3><span class="count-num" data-target="8">0</span></h3><p>International Projects</p></div>
+      <div class="counter-item"><h3><span class="count-num" data-target="2435">0</span></h3><p>Citations</p></div>
+      <div class="counter-item"><h3><span class="count-num" data-target="25">0</span></h3><p>h-index</p></div>
+      <div class="counter-item"><h3><span class="count-num" data-target="67">0</span></h3><p>i10-index</p></div>
     </div>
   </section>
 
   <section id="current-role">
     <h2 class="section-title"><i class="fas fa-chalkboard-user"></i> Present Position: ANRF Prime Minister Professor</h2>
     <div class="card" style="text-align:center;">
-      <i class="fas fa-university" style="font-size:3rem;"></i>
+      <i class="fas fa-university" style="font-size:2.5rem;"></i>
       <h3>ANRF Prime Minister Professor – Central University of Kerala</h3>
       <p><strong>About the role:</strong> The ANRF (Anusandhan National Research Foundation) Prime Minister’s Scheme for Mentoring Young Professors is a prestigious national initiative to bring eminent academicians and former Vice-Chancellors to central universities. These distinguished professors mentor early‑career faculty, design innovative curricula, and lead policy‑oriented research.</p>
       <p>Prof. Deshmukh’s responsibilities include: guiding interdisciplinary research in physics and material science, advising the university on NEP 2020 implementation, conducting high‑level workshops for faculty development, and fostering international collaborations. He also teaches advanced courses in condensed matter physics and higher education governance.</p>
@@ -449,15 +470,15 @@
 
   <section id="publications">
     <h2 class="section-title"><i class="fas fa-book-open"></i> Key Publications & Reports</h2>
-    <div class="pub-list" id="pubContainer" style="background:var(--surface-light); backdrop-filter:blur(12px); border-radius:1.5rem; padding:1.5rem; border:1px solid var(--border-light);"></div>
-    <div style="text-align:center; margin-top:2rem;"><button id="loadMorePubs" class="btn">Load More Publications</button></div>
+    <div class="pub-list" id="pubContainer" style="background:var(--surface-light); backdrop-filter:blur(12px); border-radius:1.5rem; padding:1.2rem; border:1px solid var(--border-light);"></div>
+    <div style="text-align:center; margin-top:1.5rem;"><button id="loadMorePubs" class="btn">Load More Publications</button></div>
   </section>
 
   <section id="contact">
     <h2 class="section-title"><i class="fas fa-envelope"></i> Contact & Office</h2>
     <div class="contact-flex">
       <div class="contact-info">
-        <i class="fas fa-map-marker-alt" style="font-size:1.8rem;"></i>
+        <i class="fas fa-map-marker-alt" style="font-size:1.5rem;"></i>
         <h3>Office</h3>
         <p>ANRF Prime Minister Professor’s Chamber<br>Central University of Kerala, Tejaswini Hills, Periye, Kasaragod – 671320</p>
         <hr>
@@ -494,7 +515,7 @@
   window.addEventListener('resize', fadeHero);
   fadeHero();
 
-  // ---------- PUBLICATIONS (based on actual works) ----------
+  // ---------- PUBLICATIONS ----------
   const allPublications = [
     { title: "Reimagining University Governance in the Context of NEP 2020", venue: "Journal of Indian Education", year: "2023" },
     { title: "Quality Enhancement in State Universities: Challenges and Strategic Interventions", venue: "Higher Education for the Future", year: "2021" },
@@ -511,7 +532,7 @@
   function renderPublications() {
     const toShow = allPublications.slice(0, displayedCount);
     pubContainer.innerHTML = toShow.map(pub => `
-      <div style="padding:1rem 0; border-bottom:1px solid var(--border-light); display:flex; justify-content:space-between; flex-wrap:wrap;">
+      <div style="padding:0.8rem 0; border-bottom:1px solid var(--border-light); display:flex; justify-content:space-between; flex-wrap:wrap;">
         <div><strong>${pub.title}</strong><br><small>${pub.venue}</small></div>
         <span style="color:var(--accent-light);">${pub.year}</span>
       </div>
@@ -535,7 +556,7 @@
   });
   renderPublications();
 
-  // ---------- COUNTER ANIMATION ----------
+  // ---------- COUNTER ANIMATION (including citation numbers) ----------
   const counters = document.querySelectorAll('.count-num');
   let counted = false;
   const counterSection = document.querySelector('.counter-grid');
@@ -595,7 +616,7 @@
   });
   backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-  // ---------- CONTACT FORM ----------
+  // ---------- CONTACT FORM TOAST ----------
   document.getElementById('profContactForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.getElementById('name').value.trim();
