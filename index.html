@@ -79,11 +79,11 @@
       color: var(--text-primary-light);
     }
 
-    /* ---- HERO CONTAINER (for the shrinking background) ---- */
+    /* ---- HERO WITH GRADIENT FADE (top to bottom) ---- */
     .hero-container {
       position: relative;
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
+      background: var(--bg-light); /* fallback */
     }
     .hero-bg {
       position: absolute;
@@ -91,10 +91,10 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('PCD.png') center center / cover no-repeat;
-      will-change: transform, opacity;
-      transform-origin: center center;
-      transition: none; /* controlled by JS */
+      background: url('PCD.png') center top / cover no-repeat;
+      z-index: 0;
+      mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
     }
     .hero-bg::before {
       content: '';
@@ -103,24 +103,22 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.55);
-      backdrop-filter: brightness(0.85);
+      background: rgba(0, 0, 0, 0.5);
       z-index: 1;
     }
     .hero-content {
-      position: absolute;
-      left: 8%;
-      top: 58%;
-      transform: translateY(-50%);
+      position: relative;
       z-index: 2;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 8rem 2rem 4rem 2rem;
       color: white;
-      max-width: 800px;
       text-align: left;
-      animation: fadeUp 1.2s ease-out;
+      animation: fadeUp 0.8s ease-out;
     }
     @keyframes fadeUp {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(-50%); }
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
     .hero-content h2 {
       font-size: 1.6rem;
@@ -148,7 +146,7 @@
       margin-top: 1rem;
     }
 
-    /* ---- NAVBAR (sticky) ---- */
+    /* ---- NAVBAR (sticky, always visible) ---- */
     .navbar {
       position: sticky;
       top: 0;
@@ -157,7 +155,6 @@
       background: color-mix(in srgb, var(--bg-light) 80%, transparent);
       border-bottom: 1px solid var(--border-light);
       padding: 0.8rem 2rem;
-      transition: all 0.2s;
     }
     .nav-container {
       max-width: 1280px;
@@ -190,14 +187,14 @@
       cursor: pointer;
     }
 
-    /* ---- SECTIONS (scroll reveal) ---- */
+    /* ---- SECTIONS (fast scroll reveal) ---- */
     section {
       max-width: 1280px;
       margin: 0 auto;
       padding: 5rem 2rem;
       opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(15px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
     section.visible {
       opacity: 1;
@@ -308,18 +305,15 @@
       padding: 2rem;
       border-top: 1px solid var(--border-light);
     }
-    /* Avatar image in about section (target for shrinking) */
     .about-avatar {
       width: 180px;
       height: 180px;
       object-fit: cover;
       border-radius: 50%;
       border: 3px solid var(--accent-light);
-      transition: all 0.2s;
     }
     @media (max-width: 768px) {
       .hero-content h1 { font-size: 2.2rem; white-space: normal; }
-      .hero-content { left: 5%; top: 60%; }
       .fixed-brand span { font-size: 0.8rem; }
       .nav-links { gap: 1rem; }
     }
@@ -333,9 +327,9 @@
   <span>Central University of Kerala</span>
 </div>
 
-<!-- Hero section with animated background -->
-<div class="hero-container" id="heroContainer">
-  <div class="hero-bg" id="heroBg"></div>
+<!-- Hero section with gradient-fading background -->
+<div class="hero-container">
+  <div class="hero-bg"></div>
   <div class="hero-content">
     <h2>Prime Minister Professor</h2>
     <h1>Prof. Pranawachandra Deshmukh</h1>
@@ -358,7 +352,6 @@
 </nav>
 
 <main>
-  <!-- About Section with the target avatar -->
   <section id="about">
     <h2 class="section-title"><i class="fas fa-user-graduate"></i> Biography</h2>
     <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
@@ -368,7 +361,7 @@
         <p>Prof. Deshmukh has served on numerous national committees, including UGC, NAAC, and AICTE, and has received multiple lifetime achievement awards for his contributions to Indian higher education.</p>
       </div>
       <div style="flex:1; text-align:center;">
-        <img src="PCD.png" alt="Prof. Deshmukh" class="about-avatar" id="targetAvatar">
+        <img src="PCD.png" alt="Prof. Deshmukh" class="about-avatar">
       </div>
     </div>
     <div class="counter-grid">
@@ -379,7 +372,6 @@
     </div>
   </section>
 
-  <!-- Current Role: PM Professor with explanation -->
   <section id="current-role">
     <h2 class="section-title"><i class="fas fa-chalkboard-user"></i> Present Position: PM Professor at CUK</h2>
     <div class="card" style="text-align:center;">
@@ -391,7 +383,6 @@
     </div>
   </section>
 
-  <!-- Career Timeline -->
   <section id="career">
     <h2 class="section-title"><i class="fas fa-timeline"></i> Career & Leadership</h2>
     <div class="cards-grid">
@@ -413,14 +404,12 @@
     </div>
   </section>
 
-  <!-- Publications -->
   <section id="publications">
     <h2 class="section-title"><i class="fas fa-book-open"></i> Key Publications & Reports</h2>
     <div class="pub-list" id="pubContainer" style="background:var(--surface-light); border-radius:1.5rem; padding:1.5rem;"></div>
     <div style="text-align:center; margin-top:2rem;"><button id="loadMorePubs" class="btn">Load More Publications</button></div>
   </section>
 
-  <!-- Contact -->
   <section id="contact">
     <h2 class="section-title"><i class="fas fa-envelope"></i> Contact & Office</h2>
     <div class="contact-flex">
@@ -450,59 +439,6 @@
 <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
 
 <script>
-  // ---------- SHRINK + FADE EFFECT ON SCROLL ----------
-  const heroBg = document.getElementById('heroBg');
-  const targetAvatar = document.getElementById('targetAvatar');
-  const heroContainer = document.getElementById('heroContainer');
-
-  function updateHeroTransform() {
-    const scrollY = window.scrollY;
-    const maxScroll = 500; // fully shrunk after 500px scroll
-    let progress = Math.min(1, scrollY / maxScroll);
-
-    // Fade out
-    heroBg.style.opacity = 1 - progress;
-
-    // Get avatar position and size relative to viewport
-    if (targetAvatar) {
-      const avatarRect = targetAvatar.getBoundingClientRect();
-      const heroRect = heroContainer.getBoundingClientRect();
-      // Initial hero background size and position (full screen, centered)
-      const startScale = 1;
-      const endScale = avatarRect.width / window.innerWidth; // target width / original width
-      const scale = 1 - (progress * (1 - endScale));
-      
-      // Translate: from center of hero to center of avatar
-      const heroCenterX = heroRect.left + heroRect.width / 2;
-      const heroCenterY = heroRect.top + heroRect.height / 2;
-      const avatarCenterX = avatarRect.left + avatarRect.width / 2;
-      const avatarCenterY = avatarRect.top + avatarRect.height / 2;
-      const deltaX = (avatarCenterX - heroCenterX) * progress;
-      const deltaY = (avatarCenterY - heroCenterY) * progress;
-      
-      // Apply transform: scale and translate
-      heroBg.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${scale})`;
-    } else {
-      heroBg.style.transform = `scale(${1 - progress * 0.3})`; // fallback
-    }
-
-    // Change top-left brand background when hero is mostly faded
-    const brand = document.getElementById('fixedBrand');
-    if (scrollY > 100) {
-      brand.classList.add('light-bg');
-    } else {
-      brand.classList.remove('light-bg');
-    }
-  }
-
-  window.addEventListener('scroll', () => {
-    requestAnimationFrame(updateHeroTransform);
-  });
-  window.addEventListener('resize', () => {
-    updateHeroTransform();
-  });
-  updateHeroTransform(); // initial call
-
   // ---------- PUBLICATIONS ----------
   const allPublications = [
     { title: "Reimagining University Governance in the Context of NEP 2020", venue: "Journal of Indian Education", year: "2023" },
@@ -569,12 +505,24 @@
   }, { threshold: 0.3 });
   if(counterSection) observerCounter.observe(counterSection);
 
-  // ---------- SCROLL REVEAL SECTIONS ----------
+  // ---------- FAST SCROLL REVEAL (threshold lowered, shorter distance) ----------
   const sections = document.querySelectorAll('section');
   const reveal = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
+    entries.forEach(e => {
+      if(e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" }); // appears faster
   sections.forEach(s => reveal.observe(s));
+
+  // ---------- TOP-LEFT BRAND BACKGROUND CHANGE ON SCROLL ----------
+  window.addEventListener('scroll', () => {
+    const brand = document.getElementById('fixedBrand');
+    if (window.scrollY > 100) {
+      brand.classList.add('light-bg');
+    } else {
+      brand.classList.remove('light-bg');
+    }
+  });
 
   // ---------- DARK MODE ----------
   const toggleBtn = document.getElementById('darkmode-toggle');
