@@ -15,7 +15,7 @@
 
     :root {
       --bg-light: #f9fafc;
-      --surface-light: rgba(255, 255, 255, 0.3);
+      --surface-light: rgba(255, 255, 255, 0.15);
       --text-primary-light: #0a0f1c;
       --text-secondary-light: #2c3e4e;
       --accent-light: #2c6e9e;
@@ -27,7 +27,7 @@
 
     body.dark {
       --bg-light: #0b1120;
-      --surface-light: rgba(17, 24, 39, 0.3);
+      --surface-light: rgba(17, 24, 39, 0.15);
       --text-primary-light: #f1f5f9;
       --text-secondary-light: #cbd5e1;
       --accent-light: #5b9bc5;
@@ -194,7 +194,8 @@
       transition: opacity 0.5s ease, transform 0.5s ease;
       position: relative;
       z-index: 3;
-      background: var(--section-gradient);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
       border-radius: 2rem;
     }
     #about {
@@ -208,6 +209,7 @@
       font-size: 1.8rem;
       margin-bottom: 2rem;
       border-left: 5px solid var(--accent-light);
+      --border-light: rgba(255, 255, 255, 0.2);
       padding-left: 1rem;
     }
 
@@ -247,7 +249,7 @@
     }
     .card {
       background: var(--surface-light);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(18px);
       border-radius: 1.5rem;
       padding: 2rem;
       border: 1px solid var(--border-light);
@@ -290,7 +292,7 @@
       gap: 1.5rem;
       text-align: center;
       background: var(--surface-light);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(18px);
       padding: 2rem;
       border-radius: 2rem;
       margin: 2rem 0;
