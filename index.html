@@ -122,7 +122,6 @@
       transition: opacity 0.05s linear;
       will-change: opacity;
       margin-top: -1rem;
-      /* Mask: black until 83.33% (5/6), then transparent to bottom */
       mask-image: linear-gradient(to bottom, 
         black 0%, 
         black 83.33%, 
@@ -144,14 +143,13 @@
     }
     .hero-content {
       position: absolute;
-      top: 58.33%; /* 7/12 */
+      top: 58.33%;
       left: 3%;
       transform: translateY(-50%);
       z-index: 2;
       max-width: 600px;
       color: white;
       text-align: left;
-      width: auto;
       animation: fadeUp 0.8s ease-out;
     }
     @keyframes fadeUp {
@@ -187,7 +185,7 @@
     /* ---- SECTIONS: only first section overlaps hero ---- */
     section {
       max-width: 1280px;
-      margin: 4rem auto 0 auto; /* normal gap for all sections */
+      margin: 4rem auto 0 auto;
       padding: 3rem 1.5rem;
       opacity: 0;
       transform: translateY(15px);
@@ -196,9 +194,8 @@
       z-index: 3;
       background: transparent;
     }
-    /* About section overlaps hero by negative margin */
     #about {
-      margin-top: -15vh; /* starts at ~4.5/6 of hero */
+      margin-top: -15vh;
     }
     section.visible {
       opacity: 1;
@@ -211,11 +208,7 @@
       padding-left: 1rem;
     }
 
-    #current-role .card p {
-      line-height: 1.8;
-      }
-
-    /* About container (right image) */
+    /* About container */
     .about-container {
       display: flex;
       flex-wrap: wrap;
@@ -237,7 +230,6 @@
       box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
       border: 2px solid rgba(255,255,255,0.3);
     }
-    /* Gradient overlay on image */
     .about-image::before {
       content: '';
       position: absolute;
@@ -272,6 +264,10 @@
       font-size: 2rem;
       color: var(--accent-light);
       margin-bottom: 1rem;
+    }
+    .card p {
+      line-height: 1.8;
+      text-align: justify;
     }
     .btn {
       background: var(--accent-light);
@@ -374,7 +370,6 @@
       font-weight: 500;
       font-size: 0.9rem;
     }
-    /* Publication list container */
     .pub-list {
       background: var(--surface-light);
       backdrop-filter: blur(12px);
@@ -382,7 +377,6 @@
       padding: 1.5rem;
       border: 1px solid var(--border-light);
     }
-    /* Mobile adjustments */
     @media (max-width: 768px) {
       .top-bar-container {
         flex-direction: column;
@@ -403,6 +397,7 @@
       }
       .hero-content h1 {
         font-size: 2rem;
+        white-space: normal;
       }
       .hero-content h2 {
         font-size: 1.1rem;
@@ -410,7 +405,6 @@
       .hero-content .dept {
         font-size: 1rem;
       }
-      /* No image in biography on mobile */
       .about-image {
         display: none;
       }
@@ -449,6 +443,7 @@
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#current-role">PM Professor</a>
+      <a href="#work-areas">Core Areas</a>
       <a href="#career">Career</a>
       <a href="#publications">Publications</a>
       <a href="#contact">Contact</a>
@@ -485,7 +480,6 @@
       </div>
     </div>
 
-    <!-- Counter grid -->
     <div class="counter-grid">
       <div class="counter-item"><h3><span class="count-num" data-target="42">0</span>+</h3><p>Years of Service</p></div>
       <div class="counter-item"><h3><span class="count-num" data-target="28">0</span></h3><p>PhD Scholars</p></div>
@@ -498,11 +492,50 @@
   </section>
 
   <section id="current-role">
-    <h2 class="section-title"><i class="fas fa-university"></i> ANRF Prime Minister Professor – Central University of Kerala</h2>
-    <div class="card" style="text-align:justify;">
-      <!-- <i class="fas fa-chalkboard-user" style="font-size:2.5rem;"></i> -->
+    <h2 class="section-title"><i class="fas fa-chalkboard-user"></i> Present Position: ANRF Prime Minister Professor</h2>
+    <div class="card" style="text-align:center;">
+      <!-- <i class="fas fa-university" style="font-size:2.5rem;"></i> -->
+      <h3>ANRF Prime Minister Professor – Central University of Kerala</h3>
       <p><strong>About the role:</strong> The ANRF (Anusandhan National Research Foundation) Prime Minister’s Scheme for Mentoring Young Professors is a prestigious national initiative to bring eminent academicians and former Vice-Chancellors to central universities. These distinguished professors mentor early‑career faculty, design innovative curricula, and lead policy‑oriented research.</p>
       <p>Prof. Deshmukh’s responsibilities include: guiding interdisciplinary research in physics and material science, advising the university on NEP 2020 implementation, conducting high‑level workshops for faculty development, and fostering international collaborations. He also teaches advanced courses in condensed matter physics and higher education governance.</p>
+      <p><strong>Office:</strong> Tejaswini Hills, Periye, Kasaragod – 671320, Kerala, India</p>
+    </div>
+  </section>
+
+  <!-- NEW SECTION: Core Areas of Work -->
+  <section id="work-areas">
+    <h2 class="section-title"><i class="fas fa-microscope"></i> Core Areas of Work</h2>
+    <div class="cards-grid">
+      <div class="card">
+        <i class="fas fa-flask"></i>
+        <h3>Condensed Matter Physics</h3>
+        <p>Research on electronic properties of advanced materials, superconductivity, and nanostructures. Published extensively in leading journals.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-university"></i>
+        <h3>Higher Education Governance</h3>
+        <p>Strategic leadership in university administration, quality assurance (NAAC), and implementation of NEP 2020 across central universities.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-chalkboard"></i>
+        <h3>Curriculum Innovation</h3>
+        <p>Outcome‑based education, choice‑based credit systems, and integration of skill development into undergraduate and postgraduate programmes.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-globe-asia"></i>
+        <h3>Internationalisation of Education</h3>
+        <p>Forging MOUs with global universities, facilitating student/faculty exchange, and promoting collaborative research in material science.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-balance-scale"></i>
+        <h3>Education Policy & Reform</h3>
+        <p>Advisory roles for UGC, AICTE; policy papers on autonomy, accountability, and equitable access to higher education.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-users"></i>
+        <h3>Mentorship & Capacity Building</h3>
+        <p>Guided 28 doctoral scholars, established faculty development academies, and led workshops for early‑career researchers.</p>
+      </div>
     </div>
   </section>
 
@@ -646,7 +679,7 @@
   }, { threshold: 0.3 });
   if (counterSection) observerCounter.observe(counterSection);
 
-  // ---------- SCROLL REVEAL (fast) ----------
+  // ---------- SCROLL REVEAL ----------
   const sections = document.querySelectorAll('section');
   const reveal = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -655,7 +688,7 @@
   }, { threshold: 0.05, rootMargin: "0px 0px -10px 0px" });
   sections.forEach(s => reveal.observe(s));
 
-  // ---------- DARK MODE (clean, no extra overlay) ----------
+  // ---------- DARK MODE ----------
   const toggleBtn = document.getElementById('darkmode-toggle');
   toggleBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark');
