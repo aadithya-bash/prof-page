@@ -43,67 +43,85 @@
       scroll-behavior: smooth;
     }
 
-    /* ---- FIXED TOP-LEFT BRAND (persistent on scroll) ---- */
-    .fixed-brand {
-      position: fixed;
-      top: 1.2rem;
-      left: 1.5rem;
+    /* ---- SINGLE TOP BAR (logo + nav together) ---- */
+    .top-bar {
+      position: sticky;
+      top: 0;
       z-index: 200;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 0.8rem 2rem;
+      transition: background 0.2s;
+    }
+    body.dark .top-bar {
+      background: rgba(17, 24, 39, 0.85);
+    }
+    .top-bar-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .logo-area {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(10px);
-      padding: 0.5rem 1.2rem;
-      border-radius: 60px;
-      transition: all 0.25s ease-out;
-      pointer-events: none;
+      gap: 0.8rem;
     }
-    .fixed-brand img {
-      height: 36px;
+    .logo-area img {
+      height: 40px;
       width: auto;
     }
-    .fixed-brand span {
-      font-weight: 600;
-      font-size: 1rem;
-      color: white;
-      letter-spacing: 0.3px;
+    .logo-area span {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-primary-light);
       white-space: nowrap;
     }
-    .fixed-brand.light-bg {
-      background: var(--surface-light);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      border: 1px solid var(--border-light);
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      align-items: center;
+      flex-wrap: wrap;
     }
-    .fixed-brand.light-bg span {
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
       color: var(--text-primary-light);
+      transition: 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--accent-light);
+    }
+    .theme-toggle {
+      background: var(--surface-light);
+      border: 1px solid var(--border-light);
+      border-radius: 2rem;
+      padding: 0.4rem 1rem;
+      cursor: pointer;
     }
 
-    /* ---- HERO WITH GRADIENT FADE (top to bottom) ---- */
-    .hero-container {
+    /* ---- HERO SECTION WITH SCROLL-BASED FADE (opacity) ---- */
+    .hero {
       position: relative;
-      min-height: 100vh;
-      background: var(--bg-light); /* fallback */
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      background: url('PCD.png') center center / cover no-repeat;
+      transition: opacity 0.1s linear; /* smooth fade */
+      will-change: opacity;
     }
-    .hero-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('PCD.png') center top / cover no-repeat;
-      z-index: 0;
-      mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
-    }
-    .hero-bg::before {
+    .hero::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.45);
       z-index: 1;
     }
     .hero-content {
@@ -111,7 +129,7 @@
       z-index: 2;
       max-width: 1280px;
       margin: 0 auto;
-      padding: 8rem 2rem 4rem 2rem;
+      padding: 0 2rem;
       color: white;
       text-align: left;
       animation: fadeUp 0.8s ease-out;
@@ -146,48 +164,7 @@
       margin-top: 1rem;
     }
 
-    /* ---- NAVBAR (sticky, always visible) ---- */
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(16px);
-      background: color-mix(in srgb, var(--bg-light) 80%, transparent);
-      border-bottom: 1px solid var(--border-light);
-      padding: 0.8rem 2rem;
-    }
-    .nav-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .nav-links a {
-      text-decoration: none;
-      font-weight: 500;
-      color: var(--text-primary-light);
-      transition: 0.2s;
-    }
-    .nav-links a:hover {
-      color: var(--accent-light);
-    }
-    .theme-toggle {
-      background: var(--surface-light);
-      border: 1px solid var(--border-light);
-      border-radius: 2rem;
-      padding: 0.4rem 1rem;
-      cursor: pointer;
-    }
-
-    /* ---- SECTIONS (fast scroll reveal) ---- */
+    /* ---- SECTIONS (fast reveal) ---- */
     section {
       max-width: 1280px;
       margin: 0 auto;
@@ -314,32 +291,21 @@
     }
     @media (max-width: 768px) {
       .hero-content h1 { font-size: 2.2rem; white-space: normal; }
-      .fixed-brand span { font-size: 0.8rem; }
-      .nav-links { gap: 1rem; }
+      .top-bar-container { flex-direction: column; align-items: stretch; }
+      .nav-links { justify-content: center; }
+      .logo-area { justify-content: center; }
     }
   </style>
 </head>
 <body>
 
-<!-- Persistent top-left brand -->
-<div class="fixed-brand" id="fixedBrand">
-  <img src="CU logo.png" alt="CUK Logo">
-  <span>Central University of Kerala</span>
-</div>
-
-<!-- Hero section with gradient-fading background -->
-<div class="hero-container">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <h2>Prime Minister Professor</h2>
-    <h1>Prof. Pranawachandra Deshmukh</h1>
-    <h2 class="dept">Department of Physics</h2>
-    <p class="tagline">Former Vice-Chancellor • Educationist • Policy Architect</p>
-  </div>
-</div>
-
-<nav class="navbar">
-  <div class="nav-container">
+<!-- Single top bar with logo + nav -->
+<div class="top-bar">
+  <div class="top-bar-container">
+    <div class="logo-area">
+      <img src="CU logo.png" alt="CUK Logo">
+      <span>Central University of Kerala</span>
+    </div>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#current-role">PM Professor</a>
@@ -349,7 +315,17 @@
       <button class="theme-toggle" id="darkmode-toggle"><i class="fas fa-moon"></i> Dark</button>
     </div>
   </div>
-</nav>
+</div>
+
+<!-- Hero section with scroll‑based fade (opacity) -->
+<div class="hero" id="heroSection">
+  <div class="hero-content">
+    <h2>Prime Minister Professor</h2>
+    <h1>Prof. Pranawachandra Deshmukh</h1>
+    <h2 class="dept">Department of Physics</h2>
+    <p class="tagline">Former Vice-Chancellor • Educationist • Policy Architect</p>
+  </div>
+</div>
 
 <main>
   <section id="about">
@@ -439,6 +415,18 @@
 <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
 
 <script>
+  // ---------- HERO FADE ON SCROLL (opacity) ----------
+  const hero = document.getElementById('heroSection');
+  function fadeHero() {
+    const scrollY = window.scrollY;
+    const maxFade = 400; // fully transparent after 400px scroll
+    let opacity = 1 - Math.min(1, scrollY / maxFade);
+    hero.style.opacity = Math.max(0, opacity);
+  }
+  window.addEventListener('scroll', fadeHero);
+  window.addEventListener('resize', fadeHero);
+  fadeHero(); // initial
+
   // ---------- PUBLICATIONS ----------
   const allPublications = [
     { title: "Reimagining University Governance in the Context of NEP 2020", venue: "Journal of Indian Education", year: "2023" },
@@ -505,24 +493,14 @@
   }, { threshold: 0.3 });
   if(counterSection) observerCounter.observe(counterSection);
 
-  // ---------- FAST SCROLL REVEAL (threshold lowered, shorter distance) ----------
+  // ---------- FAST SCROLL REVEAL ----------
   const sections = document.querySelectorAll('section');
   const reveal = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if(e.isIntersecting) e.target.classList.add('visible');
     });
-  }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" }); // appears faster
+  }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
   sections.forEach(s => reveal.observe(s));
-
-  // ---------- TOP-LEFT BRAND BACKGROUND CHANGE ON SCROLL ----------
-  window.addEventListener('scroll', () => {
-    const brand = document.getElementById('fixedBrand');
-    if (window.scrollY > 100) {
-      brand.classList.add('light-bg');
-    } else {
-      brand.classList.remove('light-bg');
-    }
-  });
 
   // ---------- DARK MODE ----------
   const toggleBtn = document.getElementById('darkmode-toggle');
