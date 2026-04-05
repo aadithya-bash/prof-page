@@ -57,7 +57,7 @@
       padding: 0.5rem 1.2rem;
       border-radius: 60px;
       transition: all 0.25s ease-out;
-      pointer-events: none;  /* allow clicking through to navbar if needed, but brand is decorative */
+      pointer-events: none;
     }
     .fixed-brand img {
       height: 36px;
@@ -70,7 +70,6 @@
       letter-spacing: 0.3px;
       white-space: nowrap;
     }
-    /* Light background after scroll (when hero fades) */
     .fixed-brand.light-bg {
       background: var(--surface-light);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -80,13 +79,22 @@
       color: var(--text-primary-light);
     }
 
-    /* ---- HERO WITH BACKGROUND IMAGE & FADE ON SCROLL ---- */
-    .hero-bg {
+    /* ---- HERO CONTAINER (for the shrinking background) ---- */
+    .hero-container {
       position: relative;
-      min-height: 100vh;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: url('PCD.png') center center / cover no-repeat;
-      will-change: opacity;
-      transition: opacity 0.15s linear;
+      will-change: transform, opacity;
+      transform-origin: center center;
+      transition: none; /* controlled by JS */
     }
     .hero-bg::before {
       content: '';
@@ -140,7 +148,7 @@
       margin-top: 1rem;
     }
 
-    /* ---- NAVBAR (sticky, without logo) ---- */
+    /* ---- NAVBAR (sticky) ---- */
     .navbar {
       position: sticky;
       top: 0;
@@ -300,6 +308,15 @@
       padding: 2rem;
       border-top: 1px solid var(--border-light);
     }
+    /* Avatar image in about section (target for shrinking) */
+    .about-avatar {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--accent-light);
+      transition: all 0.2s;
+    }
     @media (max-width: 768px) {
       .hero-content h1 { font-size: 2.2rem; white-space: normal; }
       .hero-content { left: 5%; top: 60%; }
@@ -310,14 +327,15 @@
 </head>
 <body>
 
-<!-- Persistent top-left brand (university logo + name) -->
+<!-- Persistent top-left brand -->
 <div class="fixed-brand" id="fixedBrand">
   <img src="CU logo.png" alt="CUK Logo">
   <span>Central University of Kerala</span>
 </div>
 
-<!-- Hero section with background image that fades on scroll -->
-<div class="hero-bg" id="heroBg">
+<!-- Hero section with animated background -->
+<div class="hero-container" id="heroContainer">
+  <div class="hero-bg" id="heroBg"></div>
   <div class="hero-content">
     <h2>Prime Minister Professor</h2>
     <h1>Prof. Pranawachandra Deshmukh</h1>
@@ -340,7 +358,7 @@
 </nav>
 
 <main>
-  <!-- About Section with full Wikipedia details -->
+  <!-- About Section with the target avatar -->
   <section id="about">
     <h2 class="section-title"><i class="fas fa-user-graduate"></i> Biography</h2>
     <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
@@ -350,7 +368,7 @@
         <p>Prof. Deshmukh has served on numerous national committees, including UGC, NAAC, and AICTE, and has received multiple lifetime achievement awards for his contributions to Indian higher education.</p>
       </div>
       <div style="flex:1; text-align:center;">
-        <img src="PCD.png" alt="Prof. Deshmukh" style="width:180px; height:180px; object-fit:cover; border-radius:50%; border:3px solid var(--accent-light);">
+        <img src="PCD.png" alt="Prof. Deshmukh" class="about-avatar" id="targetAvatar">
       </div>
     </div>
     <div class="counter-grid">
@@ -361,7 +379,7 @@
     </div>
   </section>
 
-  <!-- Current Role: PM Professor with detailed explanation -->
+  <!-- Current Role: PM Professor with explanation -->
   <section id="current-role">
     <h2 class="section-title"><i class="fas fa-chalkboard-user"></i> Present Position: PM Professor at CUK</h2>
     <div class="card" style="text-align:center;">
@@ -373,7 +391,7 @@
     </div>
   </section>
 
-  <!-- Career Timeline (VC & earlier roles) -->
+  <!-- Career Timeline -->
   <section id="career">
     <h2 class="section-title"><i class="fas fa-timeline"></i> Career & Leadership</h2>
     <div class="cards-grid">
@@ -432,7 +450,60 @@
 <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
 
 <script>
-  // ---------- PUBLICATIONS (full list) ----------
+  // ---------- SHRINK + FADE EFFECT ON SCROLL ----------
+  const heroBg = document.getElementById('heroBg');
+  const targetAvatar = document.getElementById('targetAvatar');
+  const heroContainer = document.getElementById('heroContainer');
+
+  function updateHeroTransform() {
+    const scrollY = window.scrollY;
+    const maxScroll = 500; // fully shrunk after 500px scroll
+    let progress = Math.min(1, scrollY / maxScroll);
+
+    // Fade out
+    heroBg.style.opacity = 1 - progress;
+
+    // Get avatar position and size relative to viewport
+    if (targetAvatar) {
+      const avatarRect = targetAvatar.getBoundingClientRect();
+      const heroRect = heroContainer.getBoundingClientRect();
+      // Initial hero background size and position (full screen, centered)
+      const startScale = 1;
+      const endScale = avatarRect.width / window.innerWidth; // target width / original width
+      const scale = 1 - (progress * (1 - endScale));
+      
+      // Translate: from center of hero to center of avatar
+      const heroCenterX = heroRect.left + heroRect.width / 2;
+      const heroCenterY = heroRect.top + heroRect.height / 2;
+      const avatarCenterX = avatarRect.left + avatarRect.width / 2;
+      const avatarCenterY = avatarRect.top + avatarRect.height / 2;
+      const deltaX = (avatarCenterX - heroCenterX) * progress;
+      const deltaY = (avatarCenterY - heroCenterY) * progress;
+      
+      // Apply transform: scale and translate
+      heroBg.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${scale})`;
+    } else {
+      heroBg.style.transform = `scale(${1 - progress * 0.3})`; // fallback
+    }
+
+    // Change top-left brand background when hero is mostly faded
+    const brand = document.getElementById('fixedBrand');
+    if (scrollY > 100) {
+      brand.classList.add('light-bg');
+    } else {
+      brand.classList.remove('light-bg');
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    requestAnimationFrame(updateHeroTransform);
+  });
+  window.addEventListener('resize', () => {
+    updateHeroTransform();
+  });
+  updateHeroTransform(); // initial call
+
+  // ---------- PUBLICATIONS ----------
   const allPublications = [
     { title: "Reimagining University Governance in the Context of NEP 2020", venue: "Journal of Indian Education", year: "2023" },
     { title: "Quality Enhancement in State Universities: Challenges and Strategic Interventions", venue: "Higher Education for the Future", year: "2021" },
@@ -504,25 +575,6 @@
     entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
   sections.forEach(s => reveal.observe(s));
-
-  // ---------- HERO FADE ON SCROLL + TOP-LEFT BRAND LIGHT BG ----------
-  const hero = document.getElementById('heroBg');
-  const fixedBrand = document.getElementById('fixedBrand');
-  function handleScroll() {
-    const scrollY = window.scrollY;
-    const maxFade = 400; // fully faded after 400px scroll
-    let opacity = 1 - Math.min(1, scrollY / maxFade);
-    if (hero) hero.style.opacity = Math.max(0, opacity);
-    
-    // change top-left brand background when hero is mostly faded
-    if (scrollY > 100) {
-      fixedBrand.classList.add('light-bg');
-    } else {
-      fixedBrand.classList.remove('light-bg');
-    }
-  }
-  window.addEventListener('scroll', handleScroll);
-  handleScroll(); // initial call
 
   // ---------- DARK MODE ----------
   const toggleBtn = document.getElementById('darkmode-toggle');
