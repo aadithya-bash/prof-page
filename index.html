@@ -116,7 +116,7 @@
       border-color: rgba(255,255,255,0.1);
     }
 
-    /* ---- HERO SECTION (gradient fade from 5/6 to bottom) ---- */
+    /* ---- HERO SECTION (gradient fade from 5/6 to bottom, content now right-aligned) ---- */
     .hero {
       position: relative;
       height: 100vh;
@@ -146,12 +146,12 @@
     .hero-content {
       position: absolute;
       top: 58.33%;
-      left: 3%;
+      right: 5%;           /* anchored to right side */
       transform: translateY(-50%);
       z-index: 2;
       max-width: 600px;
       color: white;
-      text-align: left;
+      text-align: right;   /* right-aligned text */
       animation: fadeUp 0.8s ease-out;
     }
     @keyframes fadeUp {
@@ -392,9 +392,10 @@
       }
       .hero-content {
         top: 58%;
-        left: 0;               /* shifted left by 20% (from 5% to 0) */
-        padding-left: 1rem;    /* keep text from touching edge */
-        max-width: 95%;
+        right: 5%;         /* keep right alignment on mobile */
+        left: auto;
+        max-width: 90%;
+        text-align: right;
       }
       .hero-content h1 {
         font-size: 2rem;
@@ -435,7 +436,7 @@
     }
   </style>
 </head>
-<body class="dark">   <!-- Dark mode is now default -->
+<body class="dark">   <!-- Dark mode default -->
 
 <!-- Glassy top bar -->
 <div class="top-bar">
@@ -456,7 +457,7 @@
   </div>
 </div>
 
-<!-- Hero section -->
+<!-- Hero section with right-aligned content -->
 <div class="hero" id="heroSection">
   <div class="hero-content">
     <h2>ANRF Prime Minister Professor</h2>
@@ -599,7 +600,7 @@
 <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
 
 <script>
-  // ---------- HERO FADE ON SCROLL ----------
+  // (All JavaScript unchanged from previous working version)
   const hero = document.getElementById('heroSection');
   function fadeHero() {
     const scrollY = window.scrollY;
@@ -611,7 +612,6 @@
   window.addEventListener('resize', fadeHero);
   fadeHero();
 
-  // ---------- PUBLICATIONS ----------
   const allPublications = [
     { title: "Reimagining University Governance in the Context of NEP 2020", venue: "Journal of Indian Education", year: "2023" },
     { title: "Quality Enhancement in State Universities: Challenges and Strategic Interventions", venue: "Higher Education for the Future", year: "2021" },
@@ -657,7 +657,6 @@
   });
   renderPublications();
 
-  // ---------- COUNTER ANIMATION ----------
   const counters = document.querySelectorAll('.count-num');
   let counted = false;
   const counterSection = document.querySelector('.counter-grid');
@@ -683,7 +682,6 @@
   }, { threshold: 0.3 });
   if (counterSection) observerCounter.observe(counterSection);
 
-  // ---------- SCROLL REVEAL ----------
   const sections = document.querySelectorAll('section');
   const reveal = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -692,7 +690,6 @@
   }, { threshold: 0.05, rootMargin: "0px 0px -10px 0px" });
   sections.forEach(s => reveal.observe(s));
 
-  // ---------- DARK MODE TOGGLE (now starting in dark mode) ----------
   const toggleBtn = document.getElementById('darkmode-toggle');
   toggleBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark');
@@ -702,7 +699,6 @@
     toggleBtn.innerHTML = document.body.classList.contains('dark') ? '<i class="fas fa-sun"></i> Light' : '<i class="fas fa-moon"></i> Dark';
   });
 
-  // ---------- SMOOTH SCROLL ----------
   document.querySelectorAll('.nav-links a').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       e.preventDefault();
@@ -711,14 +707,12 @@
     });
   });
 
-  // ---------- BACK TO TOP ----------
   const backBtn = document.getElementById('backToTop');
   window.addEventListener('scroll', () => {
     backBtn.style.opacity = window.scrollY > 500 ? '1' : '0';
   });
   backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-  // ---------- CONTACT FORM TOAST ----------
   document.getElementById('profContactForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.getElementById('name').value.trim();
