@@ -43,7 +43,7 @@
       scroll-behavior: smooth;
     }
 
-    /* ---- GLASSY TOP BAR (always 60% glassy) ---- */
+    /* ---- GLASSY TOP BAR ---- */
     .top-bar {
       position: sticky;
       top: 1rem;
@@ -114,18 +114,24 @@
       border-color: rgba(255,255,255,0.1);
     }
 
-    /* ---- HERO SECTION (gradient fade from 4/6 to bottom, content at 7/12) ---- */
+    /* ---- HERO SECTION (gradient fade from 5/6 to bottom) ---- */
     .hero {
       position: relative;
       height: 100vh;
-      display: flex;
-      align-items: center;
       background: url('PCD.png') center center / cover no-repeat;
       transition: opacity 0.05s linear;
       will-change: opacity;
       margin-top: -1rem;
+      /* Mask: black until 83.33% (5/6), then transparent to bottom */
+      mask-image: linear-gradient(to bottom, 
+        black 0%, 
+        black 83.33%, 
+        transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, 
+        black 0%, 
+        black 83.33%, 
+        transparent 100%);
     }
-    /* Gradient mask: from 4/6 (66.6%) to bottom fully transparent */
     .hero::before {
       content: '';
       position: absolute;
@@ -136,38 +142,9 @@
       background: rgba(0, 0, 0, 0.45);
       z-index: 1;
     }
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom, 
-        transparent 0%, 
-        transparent 66.6%, 
-        rgba(0,0,0,0.2) 80%, 
-        transparent 100%);
-      /* Actually we want the image to fade out, not black. Use mask instead. */
-      pointer-events: none;
-      z-index: 1;
-    }
-    /* Mask for the background image to fade at bottom */
-    .hero {
-      mask-image: linear-gradient(to bottom, 
-        black 0%, 
-        black 66.6%, 
-        transparent 83.3%, 
-        transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, 
-        black 0%, 
-        black 66.6%, 
-        transparent 83.3%, 
-        transparent 100%);
-    }
     .hero-content {
       position: absolute;
-      top: 58.33%; /* 7/12 = 58.33% */
+      top: 58.33%; /* 7/12 */
       left: 3%;
       transform: translateY(-50%);
       z-index: 2;
@@ -207,10 +184,10 @@
       margin-top: 0.8rem;
     }
 
-    /* ---- SECTIONS (start at 5/6 of hero, so no gap) ---- */
+    /* ---- SECTIONS: only first section overlaps hero ---- */
     section {
       max-width: 1280px;
-      margin: -10vh auto 0 auto; /* negative margin pulls section up to overlap hero fade */
+      margin: 4rem auto 0 auto; /* normal gap for all sections */
       padding: 3rem 1.5rem;
       opacity: 0;
       transform: translateY(15px);
@@ -219,18 +196,22 @@
       z-index: 3;
       background: transparent;
     }
+    /* About section overlaps hero by negative margin */
+    #about {
+      margin-top: -15vh; /* starts at ~4.5/6 of hero */
+    }
     section.visible {
       opacity: 1;
       transform: translateY(0);
     }
     .section-title {
       font-size: 1.8rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       border-left: 5px solid var(--accent-light);
       padding-left: 1rem;
     }
 
-    /* About section with right image and left gradient */
+    /* About container (right image) */
     .about-container {
       display: flex;
       flex-wrap: wrap;
@@ -240,13 +221,10 @@
     .about-text {
       flex: 2;
       line-height: 1.6;
-      position: relative;
-      z-index: 2;
     }
     .about-image {
       flex: 1;
       text-align: right;
-      position: relative;
     }
     .about-image img {
       width: 100%;
@@ -255,7 +233,7 @@
       box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
       border: 2px solid rgba(255,255,255,0.3);
     }
-    /* Gradient overlay on image for blending */
+    /* Gradient overlay on image */
     .about-image::before {
       content: '';
       position: absolute;
@@ -269,15 +247,15 @@
     }
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 1.5rem;
     }
     .card {
       background: var(--surface-light);
       backdrop-filter: blur(12px);
       border-radius: 1.5rem;
-      padding: 1.5rem;
+      padding: 2rem;
       border: 1px solid var(--border-light);
       box-shadow: var(--card-shadow);
       transition: all 0.3s ease;
@@ -294,22 +272,27 @@
     .btn {
       background: var(--accent-light);
       border: none;
-      padding: 0.6rem 1.5rem;
+      padding: 0.7rem 2rem;
       border-radius: 2rem;
       color: white;
       font-weight: 600;
       cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn:hover {
+      opacity: 0.9;
+      transform: scale(1.02);
     }
     .counter-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 1.5rem;
       text-align: center;
       background: var(--surface-light);
       backdrop-filter: blur(12px);
-      padding: 1.5rem;
+      padding: 2rem;
       border-radius: 2rem;
-      margin: 1.5rem 0;
+      margin: 2rem 0;
       border: 1px solid var(--border-light);
     }
     .counter-item h3 {
@@ -320,19 +303,19 @@
     .contact-flex {
       display: flex;
       flex-wrap: wrap;
-      gap: 1.5rem;
+      gap: 2rem;
     }
     .contact-info, .contact-form {
       flex: 1;
       background: var(--surface-light);
       backdrop-filter: blur(12px);
       border-radius: 1.5rem;
-      padding: 1.5rem;
+      padding: 2rem;
       border: 1px solid var(--border-light);
     }
     input, textarea {
       width: 100%;
-      padding: 0.7rem;
+      padding: 0.8rem;
       margin: 0.5rem 0;
       background: rgba(255,255,255,0.5);
       border: 1px solid var(--border-light);
@@ -369,9 +352,10 @@
     }
     footer {
       text-align: center;
-      padding: 1.5rem;
+      padding: 2rem;
       border-top: 1px solid var(--border-light);
       font-size: 0.8rem;
+      margin-top: 2rem;
     }
     .external-links {
       margin-top: 1rem;
@@ -385,6 +369,14 @@
       text-decoration: none;
       font-weight: 500;
       font-size: 0.9rem;
+    }
+    /* Publication list container */
+    .pub-list {
+      background: var(--surface-light);
+      backdrop-filter: blur(12px);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      border: 1px solid var(--border-light);
     }
     /* Mobile adjustments */
     @media (max-width: 768px) {
@@ -414,35 +406,29 @@
       .hero-content .dept {
         font-size: 1rem;
       }
-      .about-container {
-        flex-direction: column;
+      /* No image in biography on mobile */
+      .about-image {
+        display: none;
       }
       .about-text {
-        order: 2;
-        text-align: justify;
-      }
-      .about-image {
         order: 1;
-        text-align: center;
-        margin-bottom: 1rem;
-      }
-      .about-image img {
-        width: 140px;
-        border-radius: 50%;
-        border: 3px solid var(--accent-light);
-      }
-      .about-image::before {
-        display: none;
+        text-align: justify;
       }
       .section-title {
         font-size: 1.5rem;
       }
       .counter-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 0.8rem;
+        gap: 1rem;
       }
       .counter-item h3 {
         font-size: 1.5rem;
+      }
+      .cards-grid {
+        gap: 1.5rem;
+      }
+      .card {
+        padding: 1.5rem;
       }
     }
   </style>
@@ -467,7 +453,7 @@
   </div>
 </div>
 
-<!-- Hero section with gradient fade and text at 7/12 -->
+<!-- Hero section -->
 <div class="hero" id="heroSection">
   <div class="hero-content">
     <h2>ANRF Prime Minister Professor</h2>
@@ -495,7 +481,7 @@
       </div>
     </div>
 
-    <!-- Counter grid with citations -->
+    <!-- Counter grid -->
     <div class="counter-grid">
       <div class="counter-item"><h3><span class="count-num" data-target="42">0</span>+</h3><p>Years of Service</p></div>
       <div class="counter-item"><h3><span class="count-num" data-target="28">0</span></h3><p>PhD Scholars</p></div>
@@ -541,8 +527,8 @@
 
   <section id="publications">
     <h2 class="section-title"><i class="fas fa-book-open"></i> Key Publications & Reports</h2>
-    <div class="pub-list" id="pubContainer" style="background:var(--surface-light); backdrop-filter:blur(12px); border-radius:1.5rem; padding:1.2rem; border:1px solid var(--border-light);"></div>
-    <div style="text-align:center; margin-top:1.5rem;"><button id="loadMorePubs" class="btn">Load More Publications</button></div>
+    <div class="pub-list" id="pubContainer"></div>
+    <div style="text-align:center; margin-top:2rem;"><button id="loadMorePubs" class="btn">Load More Publications</button></div>
   </section>
 
   <section id="contact">
@@ -574,7 +560,7 @@
 <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
 
 <script>
-  // ---------- HERO FADE ON SCROLL (opacity) ----------
+  // ---------- HERO FADE ON SCROLL ----------
   const hero = document.getElementById('heroSection');
   function fadeHero() {
     const scrollY = window.scrollY;
@@ -586,7 +572,7 @@
   window.addEventListener('resize', fadeHero);
   fadeHero();
 
-  // ---------- PUBLICATIONS ----------
+  // ---------- PUBLICATIONS (fixed "Load More") ----------
   const allPublications = [
     { title: "Reimagining University Governance in the Context of NEP 2020", venue: "Journal of Indian Education", year: "2023" },
     { title: "Quality Enhancement in State Universities: Challenges and Strategic Interventions", venue: "Higher Education for the Future", year: "2021" },
@@ -600,27 +586,32 @@
 
   let displayedCount = 3;
   const pubContainer = document.getElementById('pubContainer');
+  const loadBtn = document.getElementById('loadMorePubs');
+
   function renderPublications() {
     const toShow = allPublications.slice(0, displayedCount);
     pubContainer.innerHTML = toShow.map(pub => `
-      <div style="padding:0.8rem 0; border-bottom:1px solid var(--border-light); display:flex; justify-content:space-between; flex-wrap:wrap;">
+      <div style="padding:1rem 0; border-bottom:1px solid var(--border-light); display:flex; justify-content:space-between; flex-wrap:wrap;">
         <div><strong>${pub.title}</strong><br><small>${pub.venue}</small></div>
         <span style="color:var(--accent-light);">${pub.year}</span>
       </div>
     `).join('');
-    const loadBtn = document.getElementById('loadMorePubs');
-    if(displayedCount >= allPublications.length) {
+    
+    if (displayedCount >= allPublications.length) {
       loadBtn.innerHTML = 'All publications shown ✓';
       loadBtn.disabled = true;
       loadBtn.style.opacity = '0.6';
+      loadBtn.style.cursor = 'not-allowed';
     } else {
       loadBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Load More Publications';
       loadBtn.disabled = false;
       loadBtn.style.opacity = '1';
+      loadBtn.style.cursor = 'pointer';
     }
   }
-  document.getElementById('loadMorePubs').addEventListener('click', () => {
-    if(displayedCount < allPublications.length) {
+
+  loadBtn.addEventListener('click', () => {
+    if (displayedCount < allPublications.length) {
       displayedCount = Math.min(displayedCount + 2, allPublications.length);
       renderPublications();
     }
@@ -632,13 +623,13 @@
   let counted = false;
   const counterSection = document.querySelector('.counter-grid');
   const observerCounter = new IntersectionObserver((entries) => {
-    if(entries[0].isIntersecting && !counted) {
+    if (entries[0].isIntersecting && !counted) {
       counters.forEach(counter => {
         const target = parseInt(counter.getAttribute('data-target'));
         let current = 0;
         const increment = target / 45;
         const update = () => {
-          if(current < target) {
+          if (current < target) {
             current += increment;
             counter.innerText = Math.floor(current);
             requestAnimationFrame(update);
@@ -651,18 +642,18 @@
       counted = true;
     }
   }, { threshold: 0.3 });
-  if(counterSection) observerCounter.observe(counterSection);
+  if (counterSection) observerCounter.observe(counterSection);
 
-  // ---------- SCROLL REVEAL ----------
+  // ---------- SCROLL REVEAL (fast) ----------
   const sections = document.querySelectorAll('section');
   const reveal = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if(e.isIntersecting) e.target.classList.add('visible');
+      if (e.isIntersecting) e.target.classList.add('visible');
     });
   }, { threshold: 0.05, rootMargin: "0px 0px -10px 0px" });
   sections.forEach(s => reveal.observe(s));
 
-  // ---------- DARK MODE ----------
+  // ---------- DARK MODE (clean, no extra overlay) ----------
   const toggleBtn = document.getElementById('darkmode-toggle');
   toggleBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark');
@@ -676,7 +667,7 @@
     anchor.addEventListener('click', function(e) {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute('href'));
-      if(target) target.scrollIntoView({ behavior: 'smooth' });
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
     });
   });
 
@@ -691,15 +682,15 @@
   document.getElementById('profContactForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.getElementById('name').value.trim();
-    if(name) showToast(`✅ Thank you, ${name}. Your message has been forwarded to Prof. Deshmukh's office.`);
+    if (name) showToast(`✅ Thank you, ${name}. Your message has been forwarded to Prof. Deshmukh's office.`);
     else showToast("❌ Please fill all fields.", true);
   });
-  function showToast(msg, isErr=false) {
+  function showToast(msg, isErr = false) {
     let t = document.querySelector('.toast-msg');
-    if(t) t.remove();
+    if (t) t.remove();
     let toast = document.createElement('div');
     toast.className = 'toast-msg';
-    if(isErr) toast.style.background = '#ef4444';
+    if (isErr) toast.style.background = '#ef4444';
     toast.innerHTML = msg;
     document.body.appendChild(toast);
     setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 2800);
